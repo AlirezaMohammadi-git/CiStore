@@ -3,22 +3,30 @@ package com.pixel_alireza.gameland
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.pixel_alireza.gameland.Screens.BaseScreen.BaseScreen
-import com.pixel_alireza.gameland.Screens.Home.HomeScreen
-import com.pixel_alireza.gameland.Screens.RoomScreen.RoomScreen
-import com.pixel_alireza.gameland.Screens.SrearchScreen.SearchScreen
-import com.pixel_alireza.gameland.Screens.globalScreen.GlobalScreen
-import com.pixel_alireza.gameland.Screens.profileScreen.ProfileScreen
+import com.pixel_alireza.gameland.data.local.BottomNavItem
+import com.pixel_alireza.gameland.ui.UIFeatures.MyBottomNavigation
+import com.pixel_alireza.gameland.ui.UIFeatures.MyTopAppBar
+import com.pixel_alireza.gameland.ui.UIFeatures.Navigation
 import com.pixel_alireza.gameland.ui.theme.GameLandTheme
 import com.pixel_alireza.gameland.utils.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +38,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GameLandTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     //<editor-fold desc="Some Settings">
                     val systemUiController = rememberSystemUiController()
@@ -42,45 +49,56 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp), //Your color
                     )
                     //</editor-fold>
-                    val ScreenIndex = remember { mutableStateOf(0) }
                     val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.HomeScreen.rout
-                    ) {
-
-                        composable(route = Screen.HomeScreen.rout) {
-                            HomeScreen()
-                        }
-
-                        composable(route = Screen.GlobalScreen.rout) {
-                            GlobalScreen ( onSearchBarClicked = {
-                                navController.navigate(Screen.SearchScreen.rout)
-                            } ) {
-                                navController.navigate(Screen.RoomScreen.rout)
-                            }
-                        }
-                        composable(route = Screen.ProfileScreen.rout) {
-                            ProfileScreen()
-                        }
-                        composable(route = Screen.SearchScreen.rout){
-                            SearchScreen()
-                        }
-                        composable(route = Screen.RoomScreen.rout){
-                            RoomScreen()
-                        }
-
-                    }
-                    BaseScreen { index ->
-
-                        when (index){
-                            0 -> {navController.navigate(Screen.HomeScreen.rout)}
-                            1 -> {navController.navigate(Screen.GlobalScreen.rout)}
-                            2 -> {navController.navigate(Screen.ProfileScreen.rout)}
-                        }
-
-                        ScreenIndex.value = index
-                    }
+                    val backStackEntry = navController.currentBackStackEntryAsState()
+                    Scaffold(
+                        bottomBar = {
+                            MyBottomNavigation(
+                                items = listOf(
+                                    BottomNavItem(
+                                        "Home",
+                                        Screen.HomeScreen.rout,
+                                        Icons.Filled.Home,
+                                        Icons.Outlined.Home,
+                                    ),
+                                    BottomNavItem(
+                                        "Rooms",
+                                        Screen.GlobalScreen.rout,
+                                        Icons.Filled.List,
+                                        Icons.Outlined.List,
+                                        2
+                                    ),
+                                    BottomNavItem(
+                                        "Chat",
+                                        Screen.ChatScreen.rout,
+                                        Icons.Filled.Email,
+                                        Icons.Outlined.Email,
+                                    ),
+                                    BottomNavItem(
+                                        "Profile",
+                                        Screen.ProfileScreen.rout,
+                                        Icons.Filled.Person,
+                                        Icons.Outlined.Person,
+                                    ),
+                                ),
+                                navController = navController,
+                                onItemClicked = { navController.navigate(it.rout) },
+                            )
+                        },
+                        topBar = {
+                            MyTopAppBar(
+                                show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,
+                                onCardClicked = { navController.navigate(Screen.CartScreen.rout) },
+                                onSettingsClicked = { navController.navigate(Screen.SettingsScreen.rout) },
+                            )
+                        },
+                        content = { innerPadding ->
+                            Navigation(
+                                navController = navController,
+                                modifier = Modifier.padding(innerPadding),
+                            )
+                        },
+                    )
                 }
             }
         }

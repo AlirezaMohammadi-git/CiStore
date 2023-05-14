@@ -9,6 +9,7 @@ import com.pixel_alireza.gameland.Screens.CartScreen.CartScreen
 import com.pixel_alireza.gameland.Screens.Home.HomeScreen
 import com.pixel_alireza.gameland.Screens.RoomScreen.RoomScreen
 import com.pixel_alireza.gameland.Screens.SrearchScreen.SearchScreen
+import com.pixel_alireza.gameland.Screens.addNewCustom.AddNewCustom
 import com.pixel_alireza.gameland.Screens.globalChatScreen.GlobalChat
 import com.pixel_alireza.gameland.Screens.globalScreen.GlobalScreen
 import com.pixel_alireza.gameland.Screens.profileScreen.ProfileScreen
@@ -33,7 +34,9 @@ fun Navigation(
                 onSearchBarClicked = {
                     navController.navigate(Screen.SearchScreen.rout)
                 },
-                onAddCustomClicked = {}
+                onAddCustomClicked = {
+                    navController.navigate(Screen.AddNewCustomScreen.rout)
+                }
             ) {
                 navController.navigate(Screen.RoomScreen.rout)
             }
@@ -55,6 +58,9 @@ fun Navigation(
         }
         composable(route = Screen.SettingsScreen.rout) {
             SettingsScreen()
+        }
+        composable(route = Screen.AddNewCustomScreen.rout) {
+            AddNewCustom()
         }
     }
 }

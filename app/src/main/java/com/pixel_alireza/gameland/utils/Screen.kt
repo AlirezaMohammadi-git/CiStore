@@ -9,4 +9,7 @@ sealed class Screen (val rout : String) {
     object ChatScreen : Screen("ChatScreen")
     object CartScreen : Screen("CartScreen")
     object SettingsScreen : Screen("SettingsScreen")
+    object AddNewCustomScreen : Screen("AddNewCustomScreen")
+    object CustomDetailScreen : Screen("CustomDetailScreen")
+
 }

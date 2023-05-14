@@ -10,6 +10,8 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.List
@@ -87,9 +89,12 @@ class MainActivity : ComponentActivity() {
                         },
                         topBar = {
                             MyTopAppBar(
+                                title = "IWStore",
+                                firstIcon = Pair(first = true, second = Icons.Default.ShoppingCart),
+                                secondIcon = Pair(first = true, second = Icons.Default.Settings),
                                 show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,
-                                onCardClicked = { navController.navigate(Screen.CartScreen.rout) },
-                                onSettingsClicked = { navController.navigate(Screen.SettingsScreen.rout) },
+                                onFirstIconClicked = { navController.navigate(Screen.CartScreen.rout) },
+                                onSecondIconClicked = { navController.navigate(Screen.SettingsScreen.rout) },
                             )
                         },
                         content = { innerPadding ->

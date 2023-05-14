@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DividerDefaults
@@ -42,6 +43,14 @@ fun GlobalScreen(
 ) {
     val chipTemplate = arrayListOf(
         ChipDetail(
+            "My Rooms",
+            remember { mutableStateOf(false) }
+        ),
+        ChipDetail(
+            "Only my followers",
+            remember { mutableStateOf(false) }
+        ),
+        ChipDetail(
             "Call Of Duty Mobile",
             remember { mutableStateOf(false) }
         ),
@@ -68,14 +77,16 @@ fun GlobalScreen(
             .fillMaxSize(),
     ) {
 
-
+        ///////////////////////////////////////////////////////////////////////////
+        // search bar
+        ///////////////////////////////////////////////////////////////////////////
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box( // search bar
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth(0.9f)
+                    .fillMaxWidth(0.7f)
                     .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp)
                     .clip(
@@ -98,14 +109,25 @@ fun GlobalScreen(
                 }
             }
 
+
+            IconButton(
+                modifier = Modifier.padding(end = 16.dp),
+                onClick = { onAddCustomClicked.invoke() }) {
+                Icon(imageVector = Icons.Filled.Person, contentDescription = null)
+            }
+
+
             IconButton(
                 modifier = Modifier.padding(end = 16.dp),
                 onClick = { onAddCustomClicked.invoke() }) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = null)
             }
 
-        }
 
+        }
+        ///////////////////////////////////////////////////////////////////////////
+        // Chips
+        ///////////////////////////////////////////////////////////////////////////
         LazyRow(
             contentPadding = PaddingValues(bottom = 8.dp, start = 16.dp)
         ) {

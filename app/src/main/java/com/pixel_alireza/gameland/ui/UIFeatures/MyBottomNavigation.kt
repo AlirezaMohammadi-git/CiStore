@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.pixel_alireza.gameland.data.local.BottomNavItem
+import com.pixel_alireza.gameland.data.local.model.UIFeatures.BottomNavItem
 
 @Composable
 fun MyBottomNavigation(
@@ -34,9 +34,7 @@ fun MyBottomNavigation(
             val selected = item.rout == backStackEntry.value?.destination?.route
             NavigationBarItem(
                 icon = {
-
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
                         if (item.badgeCount > 0) {
                             BadgedBox(
                                 content = {

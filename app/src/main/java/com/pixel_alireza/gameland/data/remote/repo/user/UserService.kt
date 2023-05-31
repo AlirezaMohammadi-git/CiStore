@@ -11,12 +11,13 @@ interface UserService {
     suspend fun getSecretInfo(token: String): SecretInfo
     suspend fun updateUsername(username: String, token: String)
     suspend fun authenticate(token: String): HttpStatusCode
-    fun saveToken(token: String)
+    fun saveToken(token: String?)
+    fun getToken() : String?
     fun loadFromSharePref()
     fun signOut()
     fun saveEmail(email: String)
     fun getEmail(): String
-    fun saveUsername(username: String)
+    fun saveUsername(username: String?)
     fun getUsername(): String
     fun saveLoginTime(time: Long)
     fun getLoginTime(): String
@@ -25,11 +26,11 @@ interface UserService {
 
     sealed class Endpoints(val url: String) {
         object signUp : Endpoints("${Constants.NORMAL_BASE_URL}/signUp")
-        object signIn : Endpoints("$Constants.NORMAL_BASE_URL/signIn")
-        object authenticate : Endpoints("$Constants.NORMAL_BASE_URL/authenticate")
-        object secret : Endpoints("$Constants.NORMAL_BASE_URL/secret")
-        object updateUsername : Endpoints("$Constants.NORMAL_BASE_URL/updateUsername")
-        object updatePass : Endpoints("$Constants.NORMAL_BASE_URL/updatePass")
+        object signIn : Endpoints("${Constants.NORMAL_BASE_URL}/signIn")
+        object authenticate : Endpoints("${Constants.NORMAL_BASE_URL}/authenticate")
+        object secret : Endpoints("${Constants.NORMAL_BASE_URL}/secret")
+        object updateUsername : Endpoints("${Constants.NORMAL_BASE_URL}/updateUsername")
+        object updatePass : Endpoints("${Constants.NORMAL_BASE_URL}/updatePass")
     }
 
 }

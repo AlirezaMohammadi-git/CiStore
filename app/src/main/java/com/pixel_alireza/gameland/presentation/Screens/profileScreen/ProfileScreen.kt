@@ -1,5 +1,6 @@
 package com.pixel_alireza.gameland.presentation.Screens.profileScreen
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,34 +29,49 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gameland.R
+import com.pixel_alireza.gameland.data.remote.repo.user.UserService
+import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
 import com.pixel_alireza.gameland.presentation.profileScreen.AddressField
 import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 import com.pixel_alireza.gameland.utils.Screen
+import javax.inject.Inject
 
 
 @Composable
 fun ProfileScreen(
-    navController: NavController
+    navController: NavController ,
+    context : Context ,
+    viewModel: ProfileScreenViewModel = hiltViewModel()
 ) {
-    val viewModel: ProfileScreenViewModel = hiltViewModel()
     viewModel.loadInfo()
-    VerifiedScreen(viewModel = viewModel, onSignOutClick = {
-        viewModel.signOut()
-        navController.navigate(Screen.SignInScreen.rout) {
-            popUpTo(Screen.HomeScreen.rout) {
-                inclusive = true
-            }
-        }
-    }, onUsernameChange = {
-        navController.navigate(Screen.EditUsername.rout)
-    },
-        onEditAvatar = {
 
+    if (viewModel.isTokenNull()) {
+        SignIn(
+            viewModel = viewModel,
+            context = context ,
+            onLoginClicked = {     navController.navigate(Screen.ProfileScreen.rout) },
+            onSignUpClicked = {  navController.navigate(Screen.SignUpScreen.rout) },
+            navigation = navController
+        )
+    }else {
+        VerifiedScreen(viewModel = viewModel, onSignOutClick = {
+            viewModel.signOut()
+            navController.navigate(Screen.SignInScreen.rout) {
+                popUpTo(Screen.HomeScreen.rout) {
+                    inclusive = true
+                }
+            }
+        }, onUsernameChange = {
+            navController.navigate(Screen.EditUsername.rout)
         },
-        onChangePasswordClicked = {
-            navController.navigate(Screen.UpdatePass.rout)
-        }
-    )
+            onEditAvatar = {
+
+            },
+            onChangePasswordClicked = {
+                navController.navigate(Screen.UpdatePass.rout)
+            }
+        )
+    }
 }
 
 
@@ -93,30 +109,32 @@ fun VerifiedScreen(
                         .clip(shape = CircleShape)
                 )
             }
-            TextButton(onClick = { onEditAvatar.invoke() }) {
-                Text(text = "Edit avatar")
-            }
         }
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(top = 16.dp)
         ) {
-            Column {
-                AddressField(
-                    value = viewModel.username.value,
-                    onValueChange = { viewModel.username.value = it },
-                    placeHolder = {
-                        Text(text = "Username")
-                    },
-                    enabled = false,
-                    number = false
-                )
-                TextButton(
-                    modifier = Modifier.align(Alignment.End),
-                    onClick = { onUsernameChange.invoke() }) {
-                    Text(text = "Edit")
+            Column() {
+                Box(
+                ) {
+                    AddressField(
+                        value = viewModel.username.value,
+                        onValueChange = { viewModel.username.value = it },
+                        placeHolder = {
+                            Text(text = "Username")
+                        },
+                        enabled = false,
+                        number = false
+                    )
+                    TextButton(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(bottom = 8.dp),
+                        onClick = { onUsernameChange.invoke() }) {
+                        Text(text = "edit")
+                    }
                 }
+
                 AddressField(
                     value = viewModel.emailValue.value,
                     onValueChange = { },

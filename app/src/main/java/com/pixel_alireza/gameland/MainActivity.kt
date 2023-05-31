@@ -1,6 +1,7 @@
 package com.pixel_alireza.gameland
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,27 +21,34 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
 import com.pixel_alireza.gameland.data.local.model.UIFeatures.BottomNavItem
+import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
 import com.pixel_alireza.gameland.data.remote.repo.user.UserService
 import com.pixel_alireza.gameland.ui.UIFeatures.MyBottomNavigation
 import com.pixel_alireza.gameland.ui.UIFeatures.MyTopAppBar
 import com.pixel_alireza.gameland.ui.UIFeatures.Navigation
 import com.pixel_alireza.gameland.ui.theme.GameLandTheme
 import com.pixel_alireza.gameland.utils.Screen
+import com.pixel_alireza.gameland.utils.TAG
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var userService: UserService
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +68,6 @@ class MainActivity : ComponentActivity() {
                     //</editor-fold>
                     val navController = rememberNavController()
                     val backStackEntry = navController.currentBackStackEntryAsState()
-                    userService.loadFromSharePref()
                     Scaffold(
                         bottomBar = {
                             MyBottomNavigation(
@@ -86,7 +93,7 @@ class MainActivity : ComponentActivity() {
                                     ),
                                     BottomNavItem(
                                         "Profile",
-                                        if (TokenInMemory.token == null) Screen.SignInScreen.rout else Screen.ProfileScreen.rout,
+                                        Screen.ProfileScreen.rout,
                                         Icons.Filled.Person,
                                         Icons.Outlined.Person,
                                     ),

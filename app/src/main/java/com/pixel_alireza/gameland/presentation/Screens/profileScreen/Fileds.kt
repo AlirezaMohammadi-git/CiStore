@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
 fun AddressField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     placeHolder: @Composable () -> Unit,
@@ -33,7 +34,7 @@ fun AddressField(
         value = value,
         onValueChange = onValueChange,
         placeholder = placeHolder,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         label = placeHolder,
         shape = MaterialTheme.shapes.large,
         enabled = enabled,

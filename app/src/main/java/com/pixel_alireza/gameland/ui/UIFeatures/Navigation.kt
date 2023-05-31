@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.pixel_alireza.gameland.presentation.Screens.CartScreen.CartScreen
 import com.pixel_alireza.gameland.presentation.Screens.Home.HomeScreen
 import com.pixel_alireza.gameland.presentation.Screens.RoomScreen.RoomScreen
@@ -52,7 +53,7 @@ fun Navigation(
             }
         }
         composable(route = Screen.ProfileScreen.rout) {
-            ProfileScreen(navController)
+            ProfileScreen(navController , context )
         }
         composable(route = Screen.SearchScreen.rout) {
             SearchScreen()
@@ -73,24 +74,33 @@ fun Navigation(
             AddNewCustom()
         }
         composable(route = Screen.SignInScreen.rout) {
-            SignIn(viewModel = hiltViewModel(), context = context,
+            SignIn(
+                viewModel = hiltViewModel(),
+                context = context,
                 onLoginClicked = {
                     navController.navigate(Screen.ProfileScreen.rout)
-                }) {
-                navController.navigate(Screen.SignUpScreen.rout)
-            }
+                },
+                navigation = navController,
+                onSignUpClicked = {
+                    navController.navigate(Screen.SignUpScreen.rout)
+                }
+                )
         }
         composable(route = Screen.SignUpScreen.rout) {
-            SignUp(viewModel = hiltViewModel<ProfileScreenViewModel>(), context = context,
+            SignUp(
+                viewModel = hiltViewModel<ProfileScreenViewModel>(),
+                context = context,
                 onSignUpClicked = {
                     navController.navigate(Screen.ProfileScreen.rout) {
                         popUpTo(Screen.SignUpScreen.rout) {
                             inclusive = true
                         }
                     }
-                }, onLogInClicked = {
+                },
+                onLogInClicked = {
                     navController.navigate(Screen.SignInScreen.rout)
-                })
+                },
+            )
         }
         composable(route = Screen.EditUsername.rout) {
             ChangeUsername(context = context, navController = navController)

@@ -1,14 +1,18 @@
 package com.pixel_alireza.gameland.presentation.Screens.profileScreen
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
 import com.pixel_alireza.gameland.data.remote.repo.user.UserService
+import com.pixel_alireza.gameland.utils.TAG
 import com.pixel_alireza.gameland.utils.coroutineExceptionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,10 +31,18 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
 
     fun loadInfo() {
         userService.loadFromSharePref()
-        if (TokenInMemory.token != null) {
-            emailValue.value = userService.getEmail()
-            username.value = userService.getUsername()
+        viewModelScope.launch(coroutineExceptionHandler) {
+            if ( TokenInMemory.token != null ){
+                emailValue.value = userService.getEmail()
+                username.value = userService.getUsername()
+            }
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun isTokenNull() : Boolean{
+        loadInfo()
+        return TokenInMemory.token == null
     }
 
     fun signOut() {
@@ -42,6 +54,7 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
     fun signIn(result: (Boolean) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val res = userService.signIn(emailValue.value, passwordValue.value)
+            Log.i(TAG.Info.tag, "signIn: $res")
             if (res) {
                 result.invoke(true)
             } else {

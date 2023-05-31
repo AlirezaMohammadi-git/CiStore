@@ -44,6 +44,7 @@ class UserServiceImpl @Inject constructor(
             }
             Log.e(TAG.Error.tag, "signUp: $res")
             if (res.res) {
+                Log.e(TAG.Error.tag, "signUp: $res")
                 saveUsername(username)
                 saveEmail(email)
                 signIn(email, password)//for token
@@ -53,6 +54,7 @@ class UserServiceImpl @Inject constructor(
                 false
             }
         } catch (e: Exception) {
+            Log.e(TAG.Error.tag, "signUp: ${e.message}")
             e.printStackTrace()
             false
         }
@@ -68,8 +70,9 @@ class UserServiceImpl @Inject constructor(
                 contentType(ContentType.Application.Json)
                 body = auth
             }
+            Log.i(TAG.Info.tag, "signIn: ${res.res}")
             if (res.res) {
-                saveToken(res.token.toString())
+                saveToken(res.token)
                 loadFromSharePref()
                 val secret = getSecretInfo(TokenInMemory.token ?: "NULL").username
                 saveUsername(secret)
@@ -80,6 +83,7 @@ class UserServiceImpl @Inject constructor(
                 false
             }
         } catch (e: Exception) {
+            Log.e(TAG.Error.tag, "signUp: ${e.message}")
             e.printStackTrace()
             false
         }
@@ -135,17 +139,25 @@ class UserServiceImpl @Inject constructor(
         }
     }
 
-    override fun saveToken(token: String) {
+    override fun saveToken(token: String?) {
         sharedPref.edit().putString(tokenKey, token).apply()
     }
 
+    override fun getToken(): String? {
+       return sharedPref.getString(tokenKey, null)
+    }
+
     override fun loadFromSharePref() {
-        val token = sharedPref.getString(tokenKey, "NULL")!!
-        val username = sharedPref.getString(usernameKey, "NULL")
-        if (token == "NULL") TokenInMemory.refreshToken(null) else TokenInMemory.refreshToken(token)
-        if (username == "NULL") UsernameInMemory.refreshUsername(null) else UsernameInMemory.refreshUsername(
-            username
-        )
+        try {
+            TokenInMemory.refreshToken(
+                sharedPref.getString(tokenKey, null)
+            )
+            UsernameInMemory.refreshUsername(
+                sharedPref.getString(usernameKey, null)
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override suspend fun getSecretInfo(token: String): SecretInfo {
@@ -164,6 +176,7 @@ class UserServiceImpl @Inject constructor(
 
     override fun signOut() {
         sharedPref.edit().clear().apply()
+        saveToken(null)
         TokenInMemory.refreshToken(null)
     }
 
@@ -176,7 +189,7 @@ class UserServiceImpl @Inject constructor(
     }
 
     val usernameKey = "GameLandusername"
-    override fun saveUsername(username: String) {
+    override fun saveUsername(username: String?) {
         sharedPref.edit().putString(usernameKey, username).apply()
     }
 

@@ -11,8 +11,7 @@ interface MessageDataSource {
     suspend fun deleteAllMessages(): Common<Unit>
 
     sealed class endPoints(val url: String) {
-        object GetAllMessages : endPoints("${Constants.NORMAL_BASE_URL}/getMessages")
-        object DeleteAllMessages : endPoints("${Constants.NORMAL_BASE_URL}/deleteAllMessages")
+        object GetAllMessages : endPoints("${{Constants.NORMAL_BASE_URL}}/getMessages")
     }
 
 }

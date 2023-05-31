@@ -1,6 +1,7 @@
 package com.pixel_alireza.gameland.presentation.Screens.SignIn
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,10 +31,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.gameland.R
+import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScreenViewModel
 import com.pixel_alireza.gameland.presentation.profileScreen.EmailField
 import com.pixel_alireza.gameland.presentation.profileScreen.PasswordField
+import com.pixel_alireza.gameland.utils.Screen
+import com.pixel_alireza.gameland.utils.TAG
 
 
 @Composable
@@ -42,7 +47,10 @@ fun SignIn(
     context: Context,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
+    navigation : NavController
 ) {
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -106,9 +114,9 @@ fun SignIn(
                 val email = viewModel.emailValue.value
                 val pass = viewModel.passwordValue.value
 
-                if (email.isNullOrBlank()) {
+                if (email.isBlank()) {
                     Toast.makeText(context, "please enter email", Toast.LENGTH_SHORT).show()
-                } else if (pass.isNullOrBlank()) {
+                } else if (pass.isBlank()) {
                     Toast.makeText(context, "please enter password", Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.signIn {
@@ -120,8 +128,6 @@ fun SignIn(
                         }
                     }
                 }
-
-
             }, modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .align(Alignment.CenterHorizontally)

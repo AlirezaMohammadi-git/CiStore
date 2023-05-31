@@ -2,7 +2,7 @@ package com.pixel_alireza.gameland.data.remote.repo.chat
 
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.remote.chat.Message
-import com.pixel_alireza.gameland.utils.WS_BASE_URL
+import com.pixel_alireza.gameland.utils.Constants
 import kotlinx.coroutines.flow.Flow
 
 interface ChatSocketService {
@@ -19,9 +19,7 @@ interface ChatSocketService {
 
 
     sealed class endPoints(val url: String) {
-
-        object chat : endPoints("$WS_BASE_URL/globalChat")
-
+        object chat : endPoints("${Constants.WS_BASE_URL}/globalChat")
     }
 
 }

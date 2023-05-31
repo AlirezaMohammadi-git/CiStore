@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
@@ -23,6 +24,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -37,7 +42,6 @@ import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 import com.pixel_alireza.gameland.ui.UIFeatures.MessageBoxItem
 import com.pixel_alireza.gameland.utils.timeFormatter
 import kotlinx.coroutines.flow.collectLatest
-
 
 @Composable
 fun GlobalChat(context: Context, viewModel: ChatViewModel = hiltViewModel()) {
@@ -63,10 +67,11 @@ fun GlobalChat(context: Context, viewModel: ChatViewModel = hiltViewModel()) {
         }
     }
     if (UsernameInMemory.username != null) {
+        val state = viewModel.getChatsState.value
         ChatScreen(
             viewModel = viewModel,
             savedUsername = UsernameInMemory.username!!,
-            chatState = viewModel.getChatsState.value
+            chatState = state
         )
     } else {
         NoUsernameScreen()
@@ -78,11 +83,16 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+
+        val scrollState = rememberLazyListState()
+        val coroutineScope = rememberCoroutineScope()
+        val lastItem = remember { derivedStateOf { scrollState.layoutInfo.totalItemsCount } }
         LazyColumn(
+            state = scrollState,
             modifier = Modifier.weight(1f),
             reverseLayout = true
         ) {
-            items(chatState.messages.size) {
+            items(count = chatState.messages.size) {
                 MessageBoxItem(
                     isOwnMessage = chatState.messages[it].username == savedUsername,
                     username = chatState.messages[it].username,
@@ -92,6 +102,19 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                 )
             }
         }
+
+        LaunchedEffect(scrollState) {
+            snapshotFlow { scrollState.firstVisibleItemIndex }
+                .collect {
+                    if (lastItem.value - 8 == it) {
+                        viewModel.increasePage()
+                        viewModel.getPreviousMessages()
+                    }
+                }
+        }
+
+
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -139,9 +162,7 @@ fun NoChatScreen(viewModel: ChatViewModel) {
                     .align(Alignment.End)
             ) {
                 OutlinedTextField(
-                    value = viewModel.messageText.value, onValueChange = {
-                        viewModel::onChangeMessage.invoke(it)
-                    },
+                    value = "", onValueChange = {},
                     placeholder = {
                         Text(text = "Message...")
                     },

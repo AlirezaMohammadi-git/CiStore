@@ -6,10 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.pixel_alireza.gameland.presentation.Screens.CartScreen.CartScreen
 import com.pixel_alireza.gameland.presentation.Screens.Home.HomeScreen
 import com.pixel_alireza.gameland.presentation.Screens.RoomScreen.RoomScreen
@@ -24,7 +22,6 @@ import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScre
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScreenViewModel
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.UpdatePasswordScreen
 import com.pixel_alireza.gameland.presentation.Screens.settingsScreen.SettingsScreen
-import com.pixel_alireza.gameland.utils.KEY_USERNAME
 import com.pixel_alireza.gameland.utils.Screen
 
 @Composable

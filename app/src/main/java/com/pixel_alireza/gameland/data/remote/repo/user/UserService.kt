@@ -2,7 +2,7 @@ package com.pixel_alireza.gameland.data.remote.repo.user
 
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.remote.auth.model.SecretInfo
-import com.pixel_alireza.gameland.utils.NORMAL_BASE_URL
+import com.pixel_alireza.gameland.utils.Constants
 import io.ktor.http.HttpStatusCode
 
 interface UserService {
@@ -24,12 +24,12 @@ interface UserService {
 
 
     sealed class Endpoints(val url: String) {
-        object signUp : Endpoints("$NORMAL_BASE_URL/signUp")
-        object signIn : Endpoints("$NORMAL_BASE_URL/signIn")
-        object authenticate : Endpoints("$NORMAL_BASE_URL/authenticate")
-        object secret : Endpoints("$NORMAL_BASE_URL/secret")
-        object updateUsername : Endpoints("$NORMAL_BASE_URL/updateUsername")
-        object updatePass : Endpoints("$NORMAL_BASE_URL/updatePass")
+        object signUp : Endpoints("${Constants.NORMAL_BASE_URL}/signUp")
+        object signIn : Endpoints("$Constants.NORMAL_BASE_URL/signIn")
+        object authenticate : Endpoints("$Constants.NORMAL_BASE_URL/authenticate")
+        object secret : Endpoints("$Constants.NORMAL_BASE_URL/secret")
+        object updateUsername : Endpoints("$Constants.NORMAL_BASE_URL/updateUsername")
+        object updatePass : Endpoints("$Constants.NORMAL_BASE_URL/updatePass")
     }
 
 }

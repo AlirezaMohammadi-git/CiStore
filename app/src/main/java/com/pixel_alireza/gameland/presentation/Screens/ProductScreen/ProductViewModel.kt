@@ -22,20 +22,20 @@ class ProductViewModel
     val storeData: State<StoreData> = _storeData
 
     private val _email = mutableStateOf("")
-    val email : State<String> = _email
+    val email: State<String> = _email
     fun onChangeEmail(newChar: String) {
         _email.value = newChar
     }
 
     private val _gamePass = mutableStateOf("")
-    val gamePass : State<String> = _gamePass
-    fun onGamePassChange(newChar: String){
+    val gamePass: State<String> = _gamePass
+    fun onGamePassChange(newChar: String) {
         _gamePass.value = newChar
     }
 
     private val _gameName = mutableStateOf("")
-    val gameName : State<String> = _gameName
-    fun onGameNameChange(newChar: String){
+    val gameName: State<String> = _gameName
+    fun onGameNameChange(newChar: String) {
         _gameName.value = newChar
     }
 
@@ -46,11 +46,11 @@ class ProductViewModel
     }
 
 
-    fun onRemoveProduct(id:String){
+    fun onRemoveProduct(id: String) {
 
     }
 
-    fun onAddMoreProduct(id: String){
+    fun onAddMoreProduct(id: String) {
         _storeData.value.productCount += 1
     }
 

@@ -1,6 +1,7 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,36 +17,50 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.gameland.R
+import coil.compose.rememberAsyncImagePainter
+import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 
 
 @Composable
 fun GameCardItems(
-    cardText: String,
+    count: Int,
     price: String,
-    game: String
+    game: String,
+    imageURL: String,
+    priority: Int,
+    id: String,
+    onCardClicked: (StoreData) -> Unit
 ) {
-
-Column (
-    verticalArrangement = Arrangement.SpaceEvenly ,
-    horizontalAlignment = Alignment.CenterHorizontally
-){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .padding(top = 16.dp)
+            .clickable {
+                onCardClicked.invoke(
+                    StoreData(
+                        game,
+                        count,
+                        price,
+                        imageURL,
+                        priority,
+                        id
+                    )
+                )
+            }
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.Start
         ) {
             Image(
-                painter = painterResource(R.drawable.codm2),
+                painter = rememberAsyncImagePainter(imageURL),
                 contentDescription = null,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth()
             )
 
             Column(
@@ -64,7 +79,7 @@ Column (
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = cardText,
+                        text = count.toString(),
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier
                     )
@@ -81,6 +96,4 @@ Column (
         }
 
     }
-}
-
 }

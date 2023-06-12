@@ -1,6 +1,6 @@
 package com.pixel_alireza.gameland.presentation.Screens.profileScreen
 
-import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,32 +25,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gameland.R
-import com.pixel_alireza.gameland.data.remote.repo.user.UserService
 import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
 import com.pixel_alireza.gameland.presentation.profileScreen.AddressField
 import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 import com.pixel_alireza.gameland.utils.Screen
-import javax.inject.Inject
+import com.pixel_alireza.gameland.utils.TAG
 
 
 @Composable
 fun ProfileScreen(
     navController: NavController ,
-    context : Context ,
     viewModel: ProfileScreenViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
+
+    Log.e(TAG.Error.tag, "ProfileScreen: looptest")
     viewModel.loadInfo()
 
     if (viewModel.isTokenNull()) {
         SignIn(
             viewModel = viewModel,
-            context = context ,
-            onLoginClicked = {     navController.navigate(Screen.ProfileScreen.rout) },
-            onSignUpClicked = {  navController.navigate(Screen.SignUpScreen.rout) },
+            context = context,
+            onLoginClicked = { navController.navigate(Screen.ProfileScreen.rout) },
+            onSignUpClicked = { navController.navigate(Screen.SignUpScreen.rout) },
             navigation = navController
         )
     }else {

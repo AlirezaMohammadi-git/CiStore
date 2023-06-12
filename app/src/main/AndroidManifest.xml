@@ -7,7 +7,7 @@
 
 
     <application
-
+            android:usesCleartextTraffic="true"
             android:name="com.pixel_alireza.gameland.myApp"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"

@@ -11,5 +11,5 @@ data class Message(
     val username: String,
     val timestamp: Long,
     @PrimaryKey
-    val id:String
-    )
+    val id: String
+)

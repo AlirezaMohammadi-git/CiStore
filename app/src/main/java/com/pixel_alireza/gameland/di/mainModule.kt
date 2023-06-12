@@ -4,10 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.pixel_alireza.gameland.data.local.chatDatabase.ChatDao
-import com.pixel_alireza.gameland.data.local.chatDatabase.ChatDatabase
-import com.pixel_alireza.gameland.data.remote.repo.chat.MessageDataSource
-import com.pixel_alireza.gameland.data.remote.repo.chat.MessageDataSourceImpl
+import com.pixel_alireza.gameland.data.local.ProductDatabase.ProductDao
+import com.pixel_alireza.gameland.data.local.ProductDatabase.ProductDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,17 +43,11 @@ object mainModule {
 
     @Provides
     @Singleton
-    fun provideChatDatabase(context: Application): ChatDao {
+    fun provideChatDatabase(context: Application): ProductDao {
         val database =
-            Room.databaseBuilder(context, ChatDatabase::class.java, "chatDatabase").build()
-        return database.chatDao()
+            Room.databaseBuilder(context, ProductDatabase::class.java, "ProductDatabase").build()
+        return database.ProductDao()
     }
 
-
-    @Provides
-    @Singleton
-    fun provideMessageDatasource(client: HttpClient): MessageDataSource {
-        return MessageDataSourceImpl(client)
-    }
 
 }

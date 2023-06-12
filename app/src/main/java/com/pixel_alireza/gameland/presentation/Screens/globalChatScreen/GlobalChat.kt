@@ -18,9 +18,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -37,7 +37,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.example.gameland.R
 import com.pixel_alireza.gameland.data.local.model.cache.UsernameInMemory
-import com.pixel_alireza.gameland.data.remote.chat.ChatState
+import com.pixel_alireza.gameland.data.remote.model.chat.ChatState
 import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 import com.pixel_alireza.gameland.ui.UIFeatures.MessageBoxItem
 import com.pixel_alireza.gameland.utils.timeFormatter
@@ -118,18 +118,17 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(top = 4.dp, bottom = 4.dp)
+                .padding(top = 4.dp)
         ) {
-            OutlinedTextField(
-                value = viewModel.messageText.value, onValueChange = {
+            TextField(
+                value = viewModel.messageText.value,
+                onValueChange = {
                     viewModel::onChangeMessage.invoke(it)
                 },
-                shape = MaterialTheme.shapes.large,
                 placeholder = {
                     Text(text = "Message...")
                 },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
                     IconButton(onClick = viewModel::sendMessage) {
                         Icon(Icons.Default.Send, "send")

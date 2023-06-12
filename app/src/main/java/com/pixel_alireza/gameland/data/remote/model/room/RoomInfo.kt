@@ -1,4 +1,4 @@
-package com.pixel_alireza.gameland.data.remote.room
+package com.pixel_alireza.gameland.data.remote.model.room
 
 import kotlinx.serialization.Serializable
 

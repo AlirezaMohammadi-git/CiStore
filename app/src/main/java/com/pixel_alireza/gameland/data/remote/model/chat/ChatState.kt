@@ -1,4 +1,4 @@
-package com.pixel_alireza.gameland.data.remote.chat
+package com.pixel_alireza.gameland.data.remote.model.chat
 
 import kotlinx.serialization.Serializable
 

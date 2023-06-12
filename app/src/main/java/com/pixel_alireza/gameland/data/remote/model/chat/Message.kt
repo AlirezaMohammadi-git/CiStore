@@ -1,4 +1,4 @@
-package com.pixel_alireza.gameland.data.remote.chat
+package com.pixel_alireza.gameland.data.remote.model.chat
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class Message(
     val text: String,
     val username: String,
-    @PrimaryKey
     val timestamp: Long,
-
+    @PrimaryKey
+    val id:String
     )

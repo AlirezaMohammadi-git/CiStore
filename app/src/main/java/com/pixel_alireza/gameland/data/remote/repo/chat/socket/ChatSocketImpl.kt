@@ -1,9 +1,8 @@
-package com.pixel_alireza.gameland.data.remote.repo.chat
+package com.pixel_alireza.gameland.data.remote.repo.chat.socket
 
 import android.util.Log
 import com.example.chatapp.utils.Resource
-import com.pixel_alireza.gameland.data.remote.chat.Message
-import com.pixel_alireza.gameland.data.remote.chat.MessageDto
+import com.pixel_alireza.gameland.data.remote.model.chat.Message
 import com.pixel_alireza.gameland.utils.TAG
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.webSocketSession
@@ -28,17 +27,18 @@ class ChatSocketImpl @Inject constructor(
     private var socket: WebSocketSession? = null
     override suspend fun initializeSession(username: String): Resource<Unit> {
         return try {
-            Log.e(TAG.Error.tag, "initializeSession: $username")
+            Log.i(TAG.Info.tag, "initializeSession with user name $username is started!")
             socket = client.webSocketSession {
                 url("${ChatSocketService.endPoints.chat.url}?username=$username")
             }
             if (socket?.isActive == true) {
-                Log.e(TAG.Error.tag, "socket is active: $username")
+                Log.i(TAG.Info.tag, "socket activated for $username")
                 Resource.Success(Unit)
             } else {
                 Resource.Error("Couldn't establish connection")
             }
         } catch (e: Exception) {
+            Log.e(TAG.Error.tag, "initializeSession: ${e.message}")
             Resource.Error(e.localizedMessage ?: "Unknown Error")
         }
     }
@@ -46,8 +46,9 @@ class ChatSocketImpl @Inject constructor(
     override suspend fun sendMessage(message: String) {
         try {
             socket?.send(Frame.Text(message))
+            Log.d(TAG.Warning.tag, "sendMessage: $message")
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.d(TAG.Error.tag, "sendMessage(error): ${e.message}")
         }
     }
 
@@ -58,8 +59,7 @@ class ChatSocketImpl @Inject constructor(
                 ?.filter { it is Frame.Text }
                 ?.map { frame ->
                     val string = (frame as? Frame.Text)?.readText() ?: ""
-                    Json.decodeFromString<MessageDto>(string)
-                        .toMessage()
+                    Json.decodeFromString<Message>(string)
                 } ?: flow { }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -69,5 +69,6 @@ class ChatSocketImpl @Inject constructor(
 
     override suspend fun closeSession() {
         socket?.close()
+        Log.d(TAG.Info.tag, "closeSession: session closed!")
     }
 }

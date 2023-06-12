@@ -1,4 +1,4 @@
-package com.pixel_alireza.gameland.presentation.Screens.globalScreen
+package com.pixel_alireza.gameland.presentation.Screens.CustomRoomScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

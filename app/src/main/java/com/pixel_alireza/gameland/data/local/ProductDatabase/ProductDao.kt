@@ -12,10 +12,10 @@ interface ProductDao {
     suspend fun getAllItems(): List<StoreData>
 
     @Upsert
-    suspend fun insertProduct( product : StoreData )
+    suspend fun insertProduct(product: StoreData)
 
     @Query("SELECT * FROM StoreEntity WHERE id = :id")
-    suspend fun getProductById(id:String) : StoreData
+    suspend fun getProductById(id: String): StoreData
 
     @Query("DELETE FROM StoreEntity")
     suspend fun deleteAllProducts()

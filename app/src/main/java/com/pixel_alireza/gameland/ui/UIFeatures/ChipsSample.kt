@@ -2,6 +2,7 @@
 
 package com.pixel_alireza.gameland.ui.UIFeatures
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pixel_alireza.gameland.utils.TAG
 
 
 @Composable
@@ -22,6 +24,7 @@ fun ChipSample(
     selected: MutableState<Boolean>,
     label: String
 ) {
+    Log.d(TAG.Warning.tag, "ChipSample: $label")
     FilterChip(
         modifier = Modifier
             .padding(end = 10.dp),

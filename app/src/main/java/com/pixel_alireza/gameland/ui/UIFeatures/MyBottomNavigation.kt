@@ -65,10 +65,11 @@ fun MyBottomNavigation(
                         }
 
                     }
-
                 },
                 selected = selected,
-                onClick = { onItemClicked.invoke(item) }
+                onClick = {
+                    if (items[index].rout == item.rout) onItemClicked.invoke(item)
+                }
             )
         }
     }

@@ -7,7 +7,7 @@ import com.pixel_alireza.gameland.data.local.model.UIFeatures.ChipDetail
 import kotlinx.serialization.Serializable
 
 
-@Entity(tableName = "StoreEntity" , )
+@Entity(tableName = "StoreEntity")
 @Serializable
 data class StoreData(
     val name: String,
@@ -17,7 +17,7 @@ data class StoreData(
     val priority: Int,
     @PrimaryKey
     val id: String,
-    var productCount:Int = 1
+    var productCount: Int = 1
 ) {
     fun toChipUsage(): ChipDetail {
         return ChipDetail(name, mutableStateOf(false))

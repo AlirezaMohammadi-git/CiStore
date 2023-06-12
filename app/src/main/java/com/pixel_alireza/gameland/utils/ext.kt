@@ -1,10 +1,7 @@
 package com.pixel_alireza.gameland.utils
 
 import android.util.Log
-import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
-import com.pixel_alireza.gameland.data.remote.repo.user.UserService
 import kotlinx.coroutines.CoroutineExceptionHandler
-import javax.inject.Inject
 
 
 val coroutineExceptionHandler = CoroutineExceptionHandler { context, throwable ->
@@ -19,7 +16,38 @@ sealed class TAG(val tag: String) {
 }
 
 
-fun userProf(userService: UserService) : String{
-    userService.loadFromSharePref()
-    return if (TokenInMemory.token == null) Screen.SignInScreen.rout else Screen.ProfileScreen.rout
+//fun userProf(userService: UserService) : String{
+//    userService.loadFromSharePref()
+//    return if (TokenInMemory.token == null) Screen.SignInScreen.rout else Screen.ProfileScreen.rout
+//}
+
+
+fun endPointChooser(gamename: String): String {
+
+    return when (gamename) {
+        GameNames.CODM -> {
+            "CP"
+        }
+
+        GameNames.ClashOfClans -> {
+            "GEM"
+        }
+
+        GameNames.ClashRoyal -> {
+            "GEM"
+        }
+
+        GameNames.PUBGMOBILE -> {
+            "UC"
+        }
+
+        GameNames.FREEFIRE -> {
+            "Coin"
+        }
+
+        else -> {
+            ""
+        }
+    }
+
 }

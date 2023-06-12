@@ -1,7 +1,7 @@
 package com.pixel_alireza.gameland.data.remote.repo.user
 
 import com.example.chatapp.utils.Resource
-import com.pixel_alireza.gameland.data.remote.auth.model.SecretInfo
+import com.pixel_alireza.gameland.data.remote.model.auth.model.SecretInfo
 import com.pixel_alireza.gameland.utils.Constants
 import io.ktor.http.HttpStatusCode
 

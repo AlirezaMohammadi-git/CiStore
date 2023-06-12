@@ -41,7 +41,6 @@ fun AddNewCustom() {
                 firstIcon = Pair(true, Icons.Default.Send),
                 secondIcon = Pair(false, Icons.Default.ShoppingCart),
                 show = true,
-                onFirstIconClicked = {}
             )
         }
     ) { innerPadding ->

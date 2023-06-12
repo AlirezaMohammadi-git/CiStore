@@ -9,22 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
@@ -32,7 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.pixel_alireza.gameland.data.local.model.UIFeatures.BottomNavItem
-import com.pixel_alireza.gameland.data.local.model.cache.TokenInMemory
+import com.pixel_alireza.gameland.data.remote.repo.chat.socket.ChatSocketService
 import com.pixel_alireza.gameland.data.remote.repo.user.UserService
 import com.pixel_alireza.gameland.ui.UIFeatures.MyBottomNavigation
 import com.pixel_alireza.gameland.ui.UIFeatures.MyTopAppBar
@@ -40,19 +34,23 @@ import com.pixel_alireza.gameland.ui.UIFeatures.Navigation
 import com.pixel_alireza.gameland.ui.theme.GameLandTheme
 import com.pixel_alireza.gameland.utils.Screen
 import com.pixel_alireza.gameland.utils.TAG
+import com.pixel_alireza.gameland.utils.coroutineExceptionHandler
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var userService: UserService
 
-
+    @Inject
+    lateinit var chatSocketService: ChatSocketService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             GameLandTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
@@ -79,13 +77,6 @@ class MainActivity : ComponentActivity() {
                                         Icons.Outlined.Home,
                                     ),
                                     BottomNavItem(
-                                        "Rooms",
-                                        Screen.GlobalScreen.rout,
-                                        Icons.Filled.List,
-                                        Icons.Outlined.List,
-                                        2
-                                    ),
-                                    BottomNavItem(
                                         "Chat",
                                         Screen.ChatScreen.rout,
                                         Icons.Filled.Email,
@@ -99,32 +90,48 @@ class MainActivity : ComponentActivity() {
                                     ),
                                 ),
                                 navController = navController,
-                                onItemClicked = { navController.navigate(it.rout) },
+                                onItemClicked = { item ->
+                                    if (item.rout != backStackEntry.value?.destination?.route) navController.navigate(
+                                        item.rout
+                                    )
+                                },
                             )
                         },
                         topBar = {
                             MyTopAppBar(
-                                title = "Store",
+                                title = "IWStore",
                                 firstIcon = Pair(first = true, second = Icons.Default.ShoppingCart),
                                 secondIcon = Pair(first = true, second = Icons.Default.Settings),
                                 show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,
-                                onFirstIconClicked = { navController.navigate(Screen.CartScreen.rout) },
-                                onSecondIconClicked = { navController.navigate(Screen.SettingsScreen.rout) },
                             )
-                        },
-                        content = { innerPadding ->
-                            Navigation(
-                                navController = navController,
-                                modifier = Modifier.padding(innerPadding),
-                                context = this,
-                                myApp()
-                            )
-                        },
-                    )
+                        }
+                    ) {
+                        Navigation(
+                            navController = navController,
+                            modifier = Modifier
+                                .padding(it),
+                        )
+                    }
                 }
             }
         }
     }
+
+
+    override fun onStart() {
+        super.onStart()
+        userService.loadFromSharePref()
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        lifecycleScope.launch(coroutineExceptionHandler) {
+            chatSocketService.closeSession()
+            Log.i(TAG.Info.tag, "onDestroy: session closed!")
+        }
+    }
+
 }
 
 

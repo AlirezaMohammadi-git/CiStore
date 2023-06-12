@@ -7,11 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chatapp.utils.Resource
-import com.pixel_alireza.gameland.data.local.chatDatabase.ChatDao
 import com.pixel_alireza.gameland.data.local.model.cache.UsernameInMemory
-import com.pixel_alireza.gameland.data.remote.chat.ChatState
-import com.pixel_alireza.gameland.data.remote.repo.chat.ChatSocketService
-import com.pixel_alireza.gameland.data.remote.repo.chat.MessageDataSource
+import com.pixel_alireza.gameland.data.remote.model.chat.ChatState
+import com.pixel_alireza.gameland.data.remote.repo.chat.message.MessageDataSource
+import com.pixel_alireza.gameland.data.remote.repo.chat.socket.ChatSocketService
 import com.pixel_alireza.gameland.utils.TAG
 import com.pixel_alireza.gameland.utils.coroutineExceptionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +25,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatSocketService: ChatSocketService,
-    private val chatDao: ChatDao, //usable when internet disconnected
     private val messageDataSource: MessageDataSource
 ) : ViewModel() {
     private val _toastEvent = MutableSharedFlow<String>() //mutable version
@@ -34,9 +32,6 @@ class ChatViewModel @Inject constructor(
 
     private val _chatsState = mutableStateOf(ChatState()) //mutable version
     val getChatsState: MutableState<ChatState> = _chatsState   //immutable version
-
-//    private val _previousChatsState = mutableStateOf(ChatState())
-//    val previousMessages : State<ChatState> = _previousChatsState
 
 
     private var pageNumber = 1
@@ -76,21 +71,9 @@ class ChatViewModel @Inject constructor(
                 value.isLoading = true
             }
             val res = messageDataSource.getAllMessages(pageNumber).data ?: listOf()
-            val updatedMessages = _chatsState.value.messages + res
-            _chatsState.value = _chatsState.value.copy(messages = updatedMessages)
-            _chatsState.run {
-                value = ChatState(updatedMessages, false)
-            }
-//            res.forEach {  message ->
-//                val newList = _chatsState.value.messages.toMutableList().apply {
-//                    add(this.lastIndex + 1 , message )
-//                }
-//                _chatsState.value = _chatsState.value.copy(messages = newList)
-//            }
-//            _chatsState.run {
-//                value = ChatState(res, false)
-//            }
-//            chatDao.addMessageList(messageDataSource.getAllMessages(1).data ?: listOf())
+            val updatedMessages = (_chatsState.value.messages + res)
+            _chatsState.value =
+                _chatsState.value.copy(messages = updatedMessages, isLoading = false)
         }
     }
 
@@ -102,9 +85,6 @@ class ChatViewModel @Inject constructor(
                     add(0, message)
                 }
                 _chatsState.value = _chatsState.value.copy(messages = newList)
-                chatDao.run {
-                    addMessageList(newList)
-                }
             }.launchIn(viewModelScope)
     }
 
@@ -113,17 +93,6 @@ class ChatViewModel @Inject constructor(
             if (messageText.value.isNotBlank()) {
                 chatSocketService.sendMessage(messageText.value)
                 _messageText.value = ""
-            }
-        }
-    }
-
-
-    fun onLastItem() {
-        viewModelScope.launch(coroutineExceptionHandler) {
-            val res = messageDataSource.getAllMessages(pageNumber).data ?: listOf()
-            chatDao.addMessageList(res)
-            _chatsState.run {
-                value.messages += res
             }
         }
     }

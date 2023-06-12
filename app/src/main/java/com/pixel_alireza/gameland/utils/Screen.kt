@@ -14,5 +14,6 @@ sealed class Screen (val rout : String) {
     object AddNewCustomScreen : Screen("AddNewCustomScreen")
     object EditUsername : Screen("EditUsername")
     object UpdatePass : Screen("UpdatePass")
+    object ProductScreen : Screen("ProductScreen")
 
 }

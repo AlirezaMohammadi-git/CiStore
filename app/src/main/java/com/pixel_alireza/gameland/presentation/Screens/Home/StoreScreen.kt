@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.pixel_alireza.gameland.data.local.model.UIFeatures.ShopDetails
 import com.pixel_alireza.gameland.ui.UIFeatures.ChipSample
 import com.pixel_alireza.gameland.utils.TAG
 
@@ -29,7 +28,7 @@ fun StoreScreen(
     onNavigateToProductScreen: (String) -> Unit
 ) {
 
-    Log.e(TAG.Error.tag, "ProfileScreen: looptest", )
+    Log.e(TAG.Error.tag, "ProfileScreen: looptest")
 
 
     viewModel.getItems()
@@ -39,7 +38,7 @@ fun StoreScreen(
         "FREEFIRE",
         "Clash Of Clans",
         "Clash Royal",
-        )
+    )
     val selectedStrings = remember { mutableStateListOf<String>() }
     val filteredItems = viewModel.items.value.filter { storeData ->
         if (!selectedStrings.isEmpty()) selectedStrings.any { storeData.name.contains(it) } else true

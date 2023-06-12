@@ -16,25 +16,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StoreViewModel @Inject constructor (
-    private val storeDataService: StoreDataService ,
+class StoreViewModel @Inject constructor(
+    private val storeDataService: StoreDataService,
     private val productDao: ProductDao
-) : ViewModel(){
+) : ViewModel() {
 
     init {
         getItems()
     }
 
     private val _items = mutableStateOf(listOf<StoreData>())
-    val items : State<List<StoreData>> = _items
+    val items: State<List<StoreData>> = _items
 
-     fun getItems(){
-        viewModelScope.launch (coroutineExceptionHandler) {
+    fun getItems() {
+        viewModelScope.launch(coroutineExceptionHandler) {
             val request = storeDataService.getAllItems()
-           when(request){
+            when (request) {
                 is Resource.Error -> {
-                    Log.e(TAG.Error.tag, "getItems: ${request.message}", )
+                    Log.e(TAG.Error.tag, "getItems: ${request.message}")
                 }
+
                 is Resource.Success -> {
                     _items.value = request.data?.data ?: listOf()
                     productDao.addProductList(_items.value)

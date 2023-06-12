@@ -2,10 +2,7 @@
 
 package com.pixel_alireza.gameland.ui.UIFeatures
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,10 +21,10 @@ fun MyTopAppBar(
     firstIcon: Pair<Boolean, ImageVector>,
     secondIcon: Pair<Boolean, ImageVector>,
     show: Boolean,
-    onFirstIconClicked: () -> Unit = {},
-    onSecondIconClicked: () -> Unit = {},
+//    onFirstIconClicked: () -> Unit = {},
+//    onSecondIconClicked: () -> Unit = {},
 
-    ) {
+) {
     if (show) {
         TopAppBar(
             title = {
@@ -44,23 +41,23 @@ fun MyTopAppBar(
                     .colorScheme
                     .surfaceColorAtElevation(3.dp)
             ),
-            actions = {
-                Row {
-                    if (firstIcon.first) {
-                        IconButton(onClick = { onFirstIconClicked.invoke() }) {
-                            Icon(
-                                imageVector = firstIcon.second,
-                                contentDescription = null
-                            )
-                        }
-                    }
-                    if (secondIcon.first) {
-                        IconButton(onClick = { onSecondIconClicked.invoke() }) {
-                            Icon(imageVector = secondIcon.second, contentDescription = null)
-                        }
-                    }
-                }
-            }
+//            actions = {
+//                Row {
+//                    if (firstIcon.first) {
+//                        IconButton(onClick = { onFirstIconClicked.invoke() }) {
+//                            Icon(
+//                                imageVector = firstIcon.second,
+//                                contentDescription = null
+//                            )
+//                        }
+//                    }
+//                    if (secondIcon.first) {
+//                        IconButton(onClick = { onSecondIconClicked.invoke() }) {
+//                            Icon(imageVector = secondIcon.second, contentDescription = null)
+//                        }
+//                    }
+//                }
+//            }
         )
     }
 }

@@ -46,7 +46,6 @@ object mainModule {
     @Provides
     @Singleton
     fun provideChatDatabase(context: Application): ProductDao {
-
         val migration1to2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 // Add the necessary SQL statements here

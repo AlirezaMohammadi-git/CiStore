@@ -27,7 +27,7 @@ class StoreViewModel @Inject constructor(
     private val _items = mutableStateOf(listOf<StoreData>())
     val items: State<List<StoreData>> = _items
 
-    fun getItems( context: Context) {
+    fun getItems(context: Context) {
         try {
             if (NetworkChecker(context).isInternetConnected) {
                 viewModelScope.launch(coroutineExceptionHandler) {
@@ -50,7 +50,7 @@ class StoreViewModel @Inject constructor(
                     _items.value = productDao.getAllItems()
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

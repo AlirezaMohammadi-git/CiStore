@@ -45,7 +45,7 @@ fun GameCardItems(
                         price,
                         imageURL,
                         priority,
-                        id ,
+                        id,
                         1
                     )
                 )

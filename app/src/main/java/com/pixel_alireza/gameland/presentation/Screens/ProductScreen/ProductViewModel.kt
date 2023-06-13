@@ -49,7 +49,6 @@ class ProductViewModel
         }
     }
 
-
     fun onRemoveProduct() {
         if (productCount.value != 1){
             val newValue = _productCount.value - 1

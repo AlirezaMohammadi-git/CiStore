@@ -50,6 +50,7 @@ fun endPointChooser(gamename: String): String {
         }
     }
 
+<<<<<<< HEAD
 }
 
 
@@ -73,4 +74,6 @@ fun stylePrice( price : String ) : String {
 //        price + "USD"
         price
     }
+=======
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
 }

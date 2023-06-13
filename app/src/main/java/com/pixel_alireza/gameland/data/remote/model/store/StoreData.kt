@@ -16,4 +16,12 @@ data class StoreData(
     @PrimaryKey
     val id: String,
     var productCount: Int = 1
+<<<<<<< HEAD
 )
+=======
+) {
+    fun toChipUsage(): ChipDetail {
+        return ChipDetail(name, mutableStateOf(false))
+    }
+}
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a

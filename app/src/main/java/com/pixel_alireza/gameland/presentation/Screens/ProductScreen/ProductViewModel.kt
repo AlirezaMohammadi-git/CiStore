@@ -50,6 +50,7 @@ class ProductViewModel
     }
 
 
+<<<<<<< HEAD
     fun onRemoveProduct() {
         if (productCount.value != 1){
             val newValue = _productCount.value - 1
@@ -65,6 +66,14 @@ class ProductViewModel
         _productCount.run {
             value = newValue
         }
+=======
+    fun onRemoveProduct(id: String) {
+
+    }
+
+    fun onAddMoreProduct(id: String) {
+        _storeData.value.productCount += 1
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
     }
 
 }

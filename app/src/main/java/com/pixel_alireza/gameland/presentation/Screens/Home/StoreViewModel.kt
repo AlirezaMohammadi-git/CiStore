@@ -27,6 +27,7 @@ class StoreViewModel @Inject constructor(
     private val _items = mutableStateOf(listOf<StoreData>())
     val items: State<List<StoreData>> = _items
 
+<<<<<<< HEAD
     fun getItems( context: Context) {
         try {
             if (NetworkChecker(context).isInternetConnected) {
@@ -48,6 +49,20 @@ class StoreViewModel @Inject constructor(
             } else {
                 viewModelScope.launch(coroutineExceptionHandler) {
                     _items.value = productDao.getAllItems()
+=======
+    fun getItems() {
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val request = storeDataService.getAllItems()
+            when (request) {
+                is Resource.Error -> {
+                    Log.e(TAG.Error.tag, "getItems: ${request.message}")
+                }
+
+                is Resource.Success -> {
+                    _items.value = request.data?.data ?: listOf()
+                    productDao.addProductList(_items.value)
+                    Log.d(TAG.Warning.tag, "getItems: ${_items.value}")
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
                 }
             }
         }catch (e:Exception){

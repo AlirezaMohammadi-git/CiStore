@@ -25,7 +25,11 @@ import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 @Composable
 fun GameCardItems(
     count: Int,
+<<<<<<< HEAD
     price: Int,
+=======
+    price: String,
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
     game: String,
     imageURL: String,
     priority: Int,
@@ -45,8 +49,12 @@ fun GameCardItems(
                         price,
                         imageURL,
                         priority,
+<<<<<<< HEAD
                         id ,
                         1
+=======
+                        id
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
                     )
                 )
             }

@@ -4,8 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+<<<<<<< HEAD
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+=======
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
 import com.pixel_alireza.gameland.data.local.ProductDatabase.ProductDao
 import com.pixel_alireza.gameland.data.local.ProductDatabase.ProductDatabase
 import dagger.Module
@@ -46,6 +49,7 @@ object mainModule {
     @Provides
     @Singleton
     fun provideChatDatabase(context: Application): ProductDao {
+<<<<<<< HEAD
 
         val migration1to2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -63,6 +67,10 @@ object mainModule {
             Room.databaseBuilder(context, ProductDatabase::class.java, "ProductDatabase")
                 .addMigrations(migration1to2)
                 .build()
+=======
+        val database =
+            Room.databaseBuilder(context, ProductDatabase::class.java, "ProductDatabase").build()
+>>>>>>> d5505e70c27ca6a11d6dc4a84a75d35104747b7a
         return database.ProductDao()
     }
 

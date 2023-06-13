@@ -39,6 +39,7 @@ class StoreViewModel @Inject constructor(
 
                         is Resource.Success -> {
                             _items.value = request.data?.data ?: listOf()
+                            productDao.deleteAllProducts()
                             productDao.addProductList(_items.value)
                             Log.d(TAG.Warning.tag, "getItems: ${_items.value}")
                         }

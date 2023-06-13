@@ -6,7 +6,7 @@ import com.pixel_alireza.gameland.data.remote.model.chat.Message
 import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 
 
-@Database(entities = [Message::class, StoreData::class], version = 1, exportSchema = false)
+@Database(entities = [Message::class, StoreData::class], version = 2 , exportSchema = false)
 abstract class ProductDatabase : RoomDatabase() {
     abstract fun ProductDao(): ProductDao
 }

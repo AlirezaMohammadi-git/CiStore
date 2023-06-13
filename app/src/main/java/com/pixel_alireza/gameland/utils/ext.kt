@@ -51,3 +51,26 @@ fun endPointChooser(gamename: String): String {
     }
 
 }
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++   stylePrice  ++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+fun stylePrice( price : String ) : String {
+    return if ( price.length > 3 ){
+        val reversedPrice = price.reversed()
+        var newPrice = ""
+        for ( i in reversedPrice.indices ){
+            if (i % 3 == 0) newPrice += ","
+            newPrice += reversedPrice[i].toString()
+        }
+        if (newPrice.first() == ','){
+            newPrice = newPrice.substring(startIndex = 1)
+        }
+//        newPrice.reversed() + "USD"
+        newPrice.reversed()
+    }else{
+//        price + "USD"
+        price
+    }
+}

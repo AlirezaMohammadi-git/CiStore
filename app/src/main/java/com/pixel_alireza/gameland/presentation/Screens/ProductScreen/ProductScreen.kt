@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -33,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.gameland.R
 import com.pixel_alireza.gameland.utils.endPointChooser
+import com.pixel_alireza.gameland.utils.stylePrice
 
 
 @Composable
@@ -70,14 +70,37 @@ fun ProductScreen(
             text = viewModel
                 .storeData
                 .value
-                .count.toString() + " " +
+                .amount.toString() + " " +
                     endPointChooser(gamename = viewModel.storeData.value.name),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.ExtraBold
         )
         Spacer(Modifier.padding(vertical = 16.dp))
         Text(
-            text = "Description",
+            text = "Hey, let us celebrate Free Fire's 6th Anniversary!\n" +
+                    "\n" +
+                    "\n" +
+                    "[Duo Active Skills in CS-Ranked]\n" +
+                    "\n" +
+                    "Want to experience the agile movement of the Wukong-Tatsuya combo or the ability to shield yourself while saving a knocked down teammate using the Chrono-Dimitri pair? Play the special Clash Squad mode to explore unlimited possibilities while improving your shooting skills!\n" +
+                    "\n" +
+                    "\n" +
+                    "[Achievement System]\n" +
+                    "\n" +
+                    "On the occasion of Free Fire's birthday, we want to thank you for your continuous support. You've already created so many memories and achieved so much worth celebrating in Free Fire! We've captured everything in the Achievement System. Head there now to check out your accomplishments!\n" +
+                    "\n" +
+                    "\n" +
+                    "[More Quick Messages]\n" +
+                    "\n" +
+                    "Now you can pick and choose your favorite quick messages from over 50 options to use in your battles. Plus, this time we added female voice lines!\n" +
+                    "\n" +
+                    "\n" +
+                    "[New Characters]\n" +
+                    "\n" +
+                    "Awakening Alok is coming soon, and we have a new addition to the family, Sonia, who can turn the tide in critical moments!\n" +
+                    "\n" +
+                    "\n" +
+                    "Free Fire is a world-famous survival shooter game available on mobile. Each 10-minute game places you on a remote island where you are pit against 49 other players, all seeking survival. Players freely choose their starting point with their parachute, and aim to stay in the safe zone for as long as possible. Drive vehicles to explore the vast map, hide in the wild, or become invisible by proning under grass or rifts. Ambush, snipe, survive, there is only one goal: to survive and answer the call of duty.",
             style = MaterialTheme.typography.bodySmall,
             fontWeight = FontWeight.Light
         )
@@ -108,47 +131,75 @@ fun ProductScreen(
         )
 
 
-        Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Button(onClick = { /*  to do in feature */ }) {
-                Text(text = "Purchase")
-            }
-            Card(
-                modifier = Modifier,
-                border = BorderStroke(
-                    2.dp,
-                    MaterialTheme.colorScheme.secondary
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+
+
+        Text(
+            text = "Amount : ${stylePrice((viewModel.storeData.value.amount * viewModel.productCount.value).toString())}  ${
+                endPointChooser(
+                    viewModel.storeData.value.name
                 )
+            }",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.ExtraBold
+        )
+
+
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+
+
+
+        Text(
+            text = "Price : ${stylePrice((viewModel.storeData.value.price * viewModel.productCount.value).toString())} Toman",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.ExtraBold
+        )
+
+
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+
+        Card(
+            modifier = Modifier,
+            border = BorderStroke(
+                2.dp,
+                MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = {
-                        viewModel::onRemoveProduct.invoke(id)
-                    }) {
-                        if (viewModel.storeData.value.productCount == 1) Icon(
-                            Icons.Default.Delete,
-                            null
-                        ) else Icon(
-                            painter = painterResource(id = R.drawable.ic_minus),
-                            null
-                        )
-                    }
-                    Text(
-                        text = viewModel.storeData.value.productCount.toString(),
-                        modifier = Modifier
+                IconButton(onClick = {
+                    viewModel.onRemoveProduct()
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_minus),
+                        null
                     )
-                    IconButton(onClick = {
-                        viewModel.onAddMoreProduct(id)
-                    }) {
-                        Icon(Icons.Default.Add, null)
-                    }
+                }
+                Text(
+                    text = "${viewModel.productCount.value}",
+                    modifier = Modifier
+                )
+                IconButton(onClick = {
+                    viewModel.onAddMoreProduct()
+                }) {
+                    Icon(Icons.Default.Add, null)
                 }
             }
+        }
+
+
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+
+        Button(
+            modifier = Modifier.fillMaxWidth(0.9f),
+            onClick = { /*  to do in feature */ }) {
+            Text(text = "Purchase", modifier = Modifier.padding(8.dp))
         }
 
         Spacer(Modifier.padding(vertical = 48.dp))

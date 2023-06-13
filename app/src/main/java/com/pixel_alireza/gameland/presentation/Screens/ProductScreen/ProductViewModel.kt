@@ -18,7 +18,7 @@ class ProductViewModel
     private val productDao: ProductDao
 ) : ViewModel() {
 
-    private val _storeData = mutableStateOf(StoreData("", -1, "", "", -1, ""))
+    private val _storeData = mutableStateOf(StoreData("", -1, -1, "", -1, "" , 1))
     val storeData: State<StoreData> = _storeData
 
     private val _email = mutableStateOf("")
@@ -39,6 +39,10 @@ class ProductViewModel
         _gameName.value = newChar
     }
 
+    private val _productCount = mutableStateOf(1)
+    val productCount: State<Int> = _productCount
+
+
     fun loadData(id: String) {
         viewModelScope.launch(coroutineExceptionHandler) {
             _storeData.value = productDao.getProductById(id)
@@ -46,12 +50,21 @@ class ProductViewModel
     }
 
 
-    fun onRemoveProduct(id: String) {
+    fun onRemoveProduct() {
+        if (productCount.value != 1){
+            val newValue = _productCount.value - 1
+            _productCount.run {
+                value = newValue
+            }
+        }
 
     }
 
-    fun onAddMoreProduct(id: String) {
-        _storeData.value.productCount += 1
+    fun onAddMoreProduct() {
+        val newValue = _productCount.value + 1
+        _productCount.run {
+            value = newValue
+        }
     }
 
 }

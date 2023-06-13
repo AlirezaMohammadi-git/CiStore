@@ -71,7 +71,7 @@ fun StoreScreen(
         ) {
             items(filteredItems.size) {
                 GameCardItems(
-                    count = filteredItems[it].count,
+                    count = filteredItems[it].amount,
                     price = filteredItems[it].price,
                     game = filteredItems[it].name,
                     imageURL = filteredItems[it].imageURL,

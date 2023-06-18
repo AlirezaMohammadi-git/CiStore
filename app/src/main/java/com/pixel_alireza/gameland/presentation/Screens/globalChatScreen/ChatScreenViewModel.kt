@@ -1,8 +1,10 @@
 package com.pixel_alireza.gameland.presentation.Screens.globalChatScreen
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +17,10 @@ import com.pixel_alireza.gameland.utils.TAG
 import com.pixel_alireza.gameland.utils.coroutineExceptionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -33,6 +38,9 @@ class ChatViewModel @Inject constructor(
     private val _chatsState = mutableStateOf(ChatState()) //mutable version
     val getChatsState: MutableState<ChatState> = _chatsState   //immutable version
 
+    private val _socketStatus = mutableStateOf(false)
+    val socketStatus = _socketStatus
+
 
     private var pageNumber = 1
     fun increasePage() {
@@ -45,19 +53,17 @@ class ChatViewModel @Inject constructor(
         _messageText.value = message
     }
 
-    fun connectSession() {
+    fun connectSession(context: Context) {
         getPreviousMessages()
         if (UsernameInMemory.username != null) {
             viewModelScope.launch(coroutineExceptionHandler) {
                 when (val initSession =
-                    chatSocketService.initializeSession(UsernameInMemory.username!!)) {
+                    chatSocketService.initializeSession(UsernameInMemory.username!!, context)) {
                     is Resource.Error -> {
-                        _toastEvent.emit("Something went wrong!")
                         Log.e(TAG.Error.tag, "connectSession: ${initSession.message}")
                     }
 
                     is Resource.Success -> {
-                        _toastEvent.emit("socket connected!")
                         observeMessages()
                     }
                 }
@@ -65,15 +71,20 @@ class ChatViewModel @Inject constructor(
         }
     }    //connecting to session
 
+
+    var pageSaver = 0
     fun getPreviousMessages() {
-        viewModelScope.launch(coroutineExceptionHandler) {
-            _chatsState.run {
-                value.isLoading = true
+        if (pageNumber > pageSaver) {
+            pageSaver += 1
+            viewModelScope.launch(coroutineExceptionHandler) {
+                _chatsState.run {
+                    value.isLoading = true
+                }
+                val res = messageDataSource.getAllMessages(pageNumber).data ?: listOf()
+                val updatedMessages = (_chatsState.value.messages + res)
+                _chatsState.value =
+                    _chatsState.value.copy(messages = updatedMessages, isLoading = false)
             }
-            val res = messageDataSource.getAllMessages(pageNumber).data ?: listOf()
-            val updatedMessages = (_chatsState.value.messages + res)
-            _chatsState.value =
-                _chatsState.value.copy(messages = updatedMessages, isLoading = false)
         }
     }
 
@@ -102,6 +113,16 @@ class ChatViewModel @Inject constructor(
             chatSocketService.closeSession()
         }
     }
+
+    fun socketStatus(context: Context) {
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val res = chatSocketService.isSessionActive()
+            res.collect {
+                _socketStatus.value = it
+            }
+        }
+    }
+
 
     override fun onCleared() {
         super.onCleared()

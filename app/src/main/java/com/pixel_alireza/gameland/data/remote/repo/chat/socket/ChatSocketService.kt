@@ -1,5 +1,6 @@
 package com.pixel_alireza.gameland.data.remote.repo.chat.socket
 
+import android.content.Context
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.remote.model.chat.Message
 import com.pixel_alireza.gameland.utils.Constants
@@ -8,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 interface ChatSocketService {
 
     suspend fun initializeSession(
-        username: String
+        username: String , context: Context
     ): Resource<Unit>
 
     suspend fun sendMessage(message: String)
 
     fun observeMessages(): Flow<Message>
 
-//    fun isSessionActive() : Flow<Boolean>
+    fun isSessionActive() : Flow<Boolean>
 
     suspend fun closeSession()
 

@@ -34,14 +34,14 @@ class StoreViewModel @Inject constructor(
                     val request = storeDataService.getAllItems()
                     when (request) {
                         is Resource.Error -> {
-                            Log.e(TAG.Error.tag, "getItems: ${request.message}")
+                            Log.i(TAG.Error.tag, "getItems: ${request.message}")
                         }
 
                         is Resource.Success -> {
                             _items.value = request.data?.data ?: listOf()
                             productDao.deleteAllProducts()
                             productDao.addProductList(_items.value)
-                            Log.d(TAG.Warning.tag, "getItems: ${_items.value}")
+                            Log.i(TAG.Info.tag, "getItems: ${_items.value}")
                         }
                     }
                 }

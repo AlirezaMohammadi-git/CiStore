@@ -1,8 +1,10 @@
 package com.pixel_alireza.gameland.data.remote.repo.chat.socket
 
+import android.content.Context
 import android.util.Log
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.remote.model.chat.Message
+import com.pixel_alireza.gameland.utils.NoInternetException
 import com.pixel_alireza.gameland.utils.TAG
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.webSocketSession
@@ -11,7 +13,10 @@ import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.WebSocketSession
 import io.ktor.http.cio.websocket.close
 import io.ktor.http.cio.websocket.readText
+import ir.dunijet.broadcastreceiver.NetworkChecker
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -25,23 +30,38 @@ class ChatSocketImpl @Inject constructor(
     private val client: HttpClient
 ) : ChatSocketService {
     private var socket: WebSocketSession? = null
-    override suspend fun initializeSession(username: String): Resource<Unit> {
+    private var isSocketActive = MutableSharedFlow<Boolean>()
+    private var network = MutableSharedFlow<Boolean>()
+    override suspend fun initializeSession(username: String, context: Context): Resource<Unit> {
         return try {
-            Log.i(TAG.Info.tag, "initializeSession with user name $username is started!")
-            socket = client.webSocketSession {
-                url("${ChatSocketService.endPoints.chat.url}?username=$username")
-            }
-            if (socket?.isActive == true) {
-                Log.i(TAG.Info.tag, "socket activated for $username")
-                Resource.Success(Unit)
+            if (NetworkChecker(context).isInternetConnected) {
+                Log.i(TAG.Info.tag, "initializeSession with user name $username is started!")
+                socket = client.webSocketSession {
+                    url("${ChatSocketService.endPoints.chat.url}?username=$username")
+                }
+                if (socket?.isActive == true) {
+                    Log.i(TAG.Info.tag, "socket activated for $username")
+                    isSocketActive.emit(true)
+                    Resource.Success(Unit)
+                } else {
+                    isSocketActive.emit(false)
+                    Resource.Error("Couldn't establish connection")
+                }
             } else {
-                Resource.Error("Couldn't establish connection")
+                network.emit(false)
+                throw NoInternetException()
             }
+
         } catch (e: Exception) {
             Log.e(TAG.Error.tag, "initializeSession: ${e.message}")
+            isSocketActive.emit(false)
             Resource.Error(e.localizedMessage ?: "Unknown Error")
+        } catch (e: NoInternetException) {
+            Resource.Error("No internet connection")
         }
     }
+
+
 
     override suspend fun sendMessage(message: String) {
         try {
@@ -67,8 +87,13 @@ class ChatSocketImpl @Inject constructor(
         }
     }
 
+    override fun isSessionActive(): SharedFlow<Boolean> {
+        return isSocketActive
+    }
+
     override suspend fun closeSession() {
         socket?.close()
         Log.d(TAG.Info.tag, "closeSession: session closed!")
     }
+
 }

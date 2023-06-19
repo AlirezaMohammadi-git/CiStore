@@ -9,6 +9,7 @@ val coroutineExceptionHandler = CoroutineExceptionHandler { context, throwable -
     Log.e(TAG.Error.tag, "coroutineError: $throwable ")
 }
 
+class NoInternetException(message: String = "No Internet connection") : Exception(message)
 
 sealed class TAG(val tag: String) {
     object Error : TAG("ERROR")

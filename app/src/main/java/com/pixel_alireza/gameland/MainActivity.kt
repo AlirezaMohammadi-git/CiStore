@@ -20,10 +20,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.gameland.R
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.pixel_alireza.gameland.data.local.model.UIFeatures.BottomNavItem
 import com.pixel_alireza.gameland.data.remote.repo.chat.socket.ChatSocketService
@@ -99,7 +101,7 @@ class MainActivity : ComponentActivity() {
                         },
                         topBar = {
                             MyTopAppBar(
-                                title = "IWStore",
+                                title = stringResource(id = R.string.app_name),
                                 firstIcon = Pair(first = true, second = Icons.Default.ShoppingCart),
                                 secondIcon = Pair(first = true, second = Icons.Default.Settings),
                                 show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,

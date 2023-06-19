@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">GameLand</string>
+    <string name="app_name">CiStore</string>
     <string name="signUp">Sign Up</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -28,4 +28,8 @@
     <string name="purchase">Purchase</string>
     <string name="message">Message...</string>
     <string name="pleaseLoginToUseGChat">Please login to use global chat</string>
+    <string name="limitedCharacter">your message is too long!</string>
+    <string name="publicChat">Public chat</string>
+    <string name="connecting">Connecting...</string>
+    <string name="whatingForNetwork">Whaiting for network...</string>
 </resources>

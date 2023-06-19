@@ -2,6 +2,7 @@
 <resources>
 
 
+    <string name="app_name">سی آی استور</string>
     <string name="signUp">ثبت نام</string>
     <string name="username">نام کاربری</string>
     <string name="email">ایمیل</string>
@@ -30,6 +31,10 @@
     <string name="purchase">پرداخت</string>
     <string name="message">پیام...</string>
     <string name="pleaseLoginToUseGChat">برای استفاده از چت جهانی لطفا وارد حساب خود شوید</string>
+    <string name="limitedCharacter">پیام شما برای ارسال  بسیار طولانی است</string>
+    <string name="publicChat">چت عمومی</string>
+    <string name="connecting">درحال اتصال</string>
+    <string name="whatingForNetwork">در انتظار شبکه...</string>
 
 
 </resources>

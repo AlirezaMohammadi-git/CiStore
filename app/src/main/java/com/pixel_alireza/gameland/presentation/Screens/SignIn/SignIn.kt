@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -65,7 +66,7 @@ fun SignIn(
                 .padding(top = 32.dp, bottom = 32.dp)
         ) {
             Text(
-                text = "Sign In",
+                text = stringResource(id = R.string.signIn),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -73,7 +74,7 @@ fun SignIn(
         EmailField(
             value = viewModel.emailValue.value,
             onValueChange = { viewModel.emailValue.value = it },
-            placeHolder = { Text(text = "Email") },
+            placeHolder = { Text(text = stringResource(id = R.string.email)) },
             enabled = true,
             isError = true
         )
@@ -86,9 +87,9 @@ fun SignIn(
         PasswordField(
             value = viewModel.passwordValue.value,
             onValueChange = { viewModel.passwordValue.value = it },
-            placeHolder = { Text(text = "password") },
+            placeHolder = { Text(text = stringResource(id = R.string.password)) },
             enabled = true,
-            SupportText = { if (viewModel.passwordValue.value.isNotBlank()) Text(text = "password most be more than 8 character") },
+            SupportText = { if (viewModel.passwordValue.value.isNotBlank()) Text(text = stringResource(id = R.string.passMostBe8)) },
             EmptySupportText = {},
             passChar = 8,
             isFocused = remember {
@@ -115,15 +116,15 @@ fun SignIn(
                 val pass = viewModel.passwordValue.value
 
                 if (email.isBlank()) {
-                    Toast.makeText(context, "please enter email", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.pleaseEmail, Toast.LENGTH_SHORT).show()
                 } else if (pass.isBlank()) {
-                    Toast.makeText(context, "please enter password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.pleasePass, Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.signIn {
                         if (it) {
                             onLoginClicked.invoke()
                         } else {
-                            Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, R.string.somethingWentWrong, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -132,7 +133,7 @@ fun SignIn(
                 .fillMaxWidth(0.5f)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Text(text = "Login")
+            Text(text = stringResource(id = R.string.login))
         }
 
         Row(
@@ -143,9 +144,9 @@ fun SignIn(
                 .padding(top = 32.dp, bottom = 32.dp)
         ) {
 
-            Text(text = "Don't have an account?", fontWeight = FontWeight.Light)
+            Text(text = stringResource(id = R.string.dontHaveAcc), fontWeight = FontWeight.Light)
             TextButton(onClick = { onSignUpClicked.invoke() }) {
-                Text(text = "Sign Up", color = MaterialTheme.colorScheme.primary)
+                Text(text = stringResource(id = R.string.signUp), color = MaterialTheme.colorScheme.primary)
             }
 
         }

@@ -1,6 +1,7 @@
 package com.pixel_alireza.gameland.utils
 
 import android.util.Log
+import com.example.gameland.R
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 
@@ -73,4 +74,10 @@ fun stylePrice(price: String): String {
 //        price + "USD"
         price
     }
+}
+
+
+fun amountLine(price: Int, count: Int, currency: String): String {
+    val res = price * count
+    return " : $res $currency"
 }

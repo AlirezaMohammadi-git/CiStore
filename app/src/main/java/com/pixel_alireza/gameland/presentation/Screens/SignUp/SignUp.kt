@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -55,7 +56,7 @@ fun SignUp(
                 .padding(top = 32.dp, bottom = 32.dp)
         ) {
             Text(
-                text = "Sign Up",
+                text = stringResource(id = R.string.signUp),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -64,13 +65,13 @@ fun SignUp(
         UsernameField(
             value = viewModel.username.value,
             onValueChange = { viewModel.username.value = it },
-            placeHolder = { Text(text = "Username") },
+            placeHolder = { Text(text = stringResource(id = R.string.username)) },
             enabled = true
         )
         EmailField(
             value = viewModel.emailValue.value,
             onValueChange = { viewModel.emailValue.value = it },
-            placeHolder = { Text(text = "Email") },
+            placeHolder = { Text(text = stringResource(id = R.string.email)) },
             enabled = true,
             isError = true
         )
@@ -80,9 +81,9 @@ fun SignUp(
         PasswordField(
             value = viewModel.passwordValue.value,
             onValueChange = { viewModel.passwordValue.value = it },
-            placeHolder = { Text(text = "password") },
+            placeHolder = { Text(text = stringResource(id = R.string.password)) },
             enabled = true,
-            SupportText = { if (viewModel.passwordValue.value.isNotBlank()) Text(text = "password most be more than 8 character") },
+            SupportText = { if (viewModel.passwordValue.value.isNotBlank()) Text(text = stringResource(id = R.string.passMostBe8)) },
             EmptySupportText = {},
             passChar = 8,
             isFocused = remember {
@@ -104,7 +105,7 @@ fun SignUp(
         PasswordField(
             value = viewModel.confPasswordValue.value,
             onValueChange = { viewModel.confPasswordValue.value = it },
-            placeHolder = { Text(text = "confirm password") },
+            placeHolder = { Text(text = stringResource(id = R.string.confirmPass)) },
             enabled = true,
             SupportText = { },
             EmptySupportText = {},
@@ -134,27 +135,27 @@ fun SignUp(
                 val confPass = viewModel.confPasswordValue.value
 
                 if (username.isBlank()) {
-                    Toast.makeText(context, "please enter username", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,  R.string.pleaseUsername, Toast.LENGTH_SHORT).show()
                 } else if (email.isBlank()) {
-                    Toast.makeText(context, "please enter email", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.pleaseEmail, Toast.LENGTH_SHORT).show()
                 } else if (password.isBlank()) {
-                    Toast.makeText(context, "please enter password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.pleasePass, Toast.LENGTH_SHORT).show()
                 } else if (confPass.isBlank()) {
-                    Toast.makeText(context, "please confirm password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.pleaseConfPass, Toast.LENGTH_SHORT).show()
                 } else if (password.length < 8) {
                     Toast.makeText(
                         context,
-                        "passwords most be more than 8 character",
+                        R.string.passMostBe8,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else if (password != confPass) {
-                    Toast.makeText(context, "passwords are not same", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.passNotSame , Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.signUp {
                         if (it) {
                             onSignUpClicked.invoke()
                         } else {
-                            Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, R.string.somethingWentWrong, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -173,11 +174,11 @@ fun SignUp(
                 .fillMaxWidth()
                 .padding(top = 32.dp, bottom = 32.dp)
         ) {
-            Text(text = "Already have an account?", fontWeight = FontWeight.Light)
+            Text(text = stringResource(id = R.string.alreadyHaveAcc), fontWeight = FontWeight.Light)
             TextButton(onClick = {
                 onLogInClicked.invoke()
             }) {
-                Text(text = "Login")
+                Text(text = stringResource(id = R.string.login))
             }
         }
     }

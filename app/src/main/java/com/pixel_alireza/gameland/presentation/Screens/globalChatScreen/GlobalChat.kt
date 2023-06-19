@@ -31,6 +31,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -126,7 +127,7 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                     viewModel::onChangeMessage.invoke(it)
                 },
                 placeholder = {
-                    Text(text = "Message...")
+                    Text(text = stringResource(id = R.string.message))
                 },
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -189,7 +190,7 @@ fun NoUsernameScreen() {
                     .size(300.dp)
                     .align(Alignment.CenterHorizontally)
             )
-            Text(text = "Please Login to join global chat!")
+            Text(text = stringResource(id = R.string.pleaseLoginToUseGChat))
         }
     }
 }

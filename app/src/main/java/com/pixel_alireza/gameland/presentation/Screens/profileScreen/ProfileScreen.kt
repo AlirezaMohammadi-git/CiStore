@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -45,7 +46,6 @@ fun ProfileScreen(
 
     val context = LocalContext.current
 
-    Log.e(TAG.Error.tag, "ProfileScreen: looptest")
     viewModel.loadInfo()
 
     if (viewModel.isTokenNull()) {
@@ -124,7 +124,7 @@ fun VerifiedScreen(
                         value = viewModel.username.value,
                         onValueChange = { viewModel.username.value = it },
                         placeHolder = {
-                            Text(text = "Username")
+                            Text(text = stringResource(id = R.string.username))
                         },
                         enabled = false,
                         number = false
@@ -134,7 +134,7 @@ fun VerifiedScreen(
                             .align(Alignment.CenterEnd)
                             .padding(bottom = 8.dp),
                         onClick = { onUsernameChange.invoke() }) {
-                        Text(text = "edit")
+                        Text(text = stringResource(id = R.string.edit))
                     }
                 }
 
@@ -142,7 +142,7 @@ fun VerifiedScreen(
                     value = viewModel.emailValue.value,
                     onValueChange = { },
                     placeHolder = {
-                        Text(text = "Email")
+                        Text(text = stringResource(id = R.string.email))
                     },
                     enabled = false,
                     number = false
@@ -151,7 +151,7 @@ fun VerifiedScreen(
                 Button(
                     modifier = Modifier.fillMaxWidth(0.95f),
                     onClick = { onChangePasswordClicked.invoke() }) {
-                    Text(text = "Change password")
+                    Text(text = stringResource(id = R.string.changePass))
                 }
                 Spacer(Modifier.height(16.dp))
                 Button(modifier = Modifier.fillMaxWidth(0.95f),
@@ -159,7 +159,7 @@ fun VerifiedScreen(
                     onClick = {
                         onSignOutClick.invoke()
                     }) {
-                    Text(text = "Log out")
+                    Text(text = stringResource(id = R.string.logOut))
                 }
                 LottieAnimationBuilder(
                     animationAdress = R.raw.pencil_drawing, modifier = Modifier.size(250.dp)

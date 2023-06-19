@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">GameLand</string>
+    <string name="app_name" translatable="false">GameLand</string>
+    <string name="signUp">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPass">Confirm password</string>
+    <string name="passMostBe8">Your password most be more than 8 character</string>
+    <string name="pleaseUsername">Please enter username</string>
+    <string name="pleaseEmail">Please enter username</string>
+    <string name="pleasePass">Please enter password</string>
+    <string name="pleaseConfPass">Please confirm password</string>
+    <string name="passNotSame">Your passwords are not same</string>
+    <string name="somethingWentWrong">Something went wrong!</string>
+    <string name="alreadyHaveAcc">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="signIn">Sign In</string>
+    <string name="dontHaveAcc">Don\'t have an account?</string>
+    <string name="edit">edit</string>
+    <string name="changePass">Change Password</string>
+    <string name="logOut">Log out</string>
+    <string name="yourGameMail">connected email to account</string>
+    <string name="yourGamePass">your game password</string>
+    <string name="accountName">"account name "</string>
+    <string name="yourAcountName">your account name</string>
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
+    <string name="purchase">Purchase</string>
+    <string name="message">Message...</string>
+    <string name="pleaseLoginToUseGChat">Please login to use global chat</string>
 </resources>

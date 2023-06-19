@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -110,24 +111,24 @@ fun ProductScreen(
             onValueChange = { viewModel.onChangeEmail(it) },
             placeholder = { Text(text = "xxx@gmail.com") },
             shape = MaterialTheme.shapes.large,
-            label = { Text(text = "your game email") }
+            label = { Text(text = stringResource(id = R.string.yourGameMail)) }
         )
 
         OutlinedTextField(
             value = viewModel.gamePass.value,
             onValueChange = { viewModel.onGamePassChange(it) },
-            placeholder = { Text(text = "password") },
+            placeholder = { Text(text = stringResource(id = R.string.password)) },
             shape = MaterialTheme.shapes.large,
-            label = { Text(text = "your game password") },
+            label = { Text(text = stringResource(id = R.string.yourGamePass)) },
         )
 
 
         OutlinedTextField(
             value = viewModel.gameName.value,
             onValueChange = { viewModel.onGameNameChange(it) },
-            placeholder = { Text(text = "game name") },
+            placeholder = { Text(text = stringResource(id = R.string.accountName)) },
             shape = MaterialTheme.shapes.large,
-            label = { Text(text = "your game name") },
+            label = { Text(text = stringResource(id = R.string.yourAcountName)) },
         )
 
 
@@ -136,7 +137,7 @@ fun ProductScreen(
 
 
         Text(
-            text = "Amount : ${stylePrice((viewModel.storeData.value.amount * viewModel.productCount.value).toString())}  ${
+            text = stringResource(id = R.string.amount) + " : ${stylePrice((viewModel.storeData.value.amount * viewModel.productCount.value).toString())}  ${
                 endPointChooser(
                     viewModel.storeData.value.name
                 )
@@ -152,7 +153,7 @@ fun ProductScreen(
 
 
         Text(
-            text = "Price : ${stylePrice((viewModel.storeData.value.price * viewModel.productCount.value).toString())} Toman",
+            text = stringResource(id = R.string.price) + " : ${stylePrice((viewModel.storeData.value.price * viewModel.productCount.value).toString())} Toman",
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.ExtraBold
         )
@@ -199,7 +200,7 @@ fun ProductScreen(
         Button(
             modifier = Modifier.fillMaxWidth(0.9f),
             onClick = { /*  to do in feature */ }) {
-            Text(text = "Purchase", modifier = Modifier.padding(8.dp))
+            Text(text = stringResource(id = R.string.purchase), modifier = Modifier.padding(8.dp))
         }
 
         Spacer(Modifier.padding(vertical = 48.dp))

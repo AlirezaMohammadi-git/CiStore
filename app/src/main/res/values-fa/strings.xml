@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="signUp">ثبت نام</string>
+    <string name="username">نام کاربری</string>
+    <string name="email">ایمیل</string>
+    <string name="password">رمز عبور</string>
+    <string name="confirmPass">تایید رمز عبور</string>
+    <string name="passMostBe8">رمز باید بیشتر از ۸ حرف باشد</string>
+    <string name="pleaseUsername">لطفا نام کاربری را وارد کنید</string>
+    <string name="pleaseEmail">لطفا نام کاربری را وارد کنید</string>
+    <string name="pleasePass">لطفا رمز عبور را وارد کنید</string>
+    <string name="pleaseConfPass">لطفا پسورد را تایید کنید</string>
+    <string name="passNotSame">رمز عبور ها یکی نیستند!</string>
+    <string name="somethingWentWrong">مشکلی یپش آمده است</string>
+    <string name="alreadyHaveAcc">حساب کاربری دارید؟</string>
+    <string name="login">ورود</string>
+    <string name="signIn">ورود</string>
+    <string name="dontHaveAcc">حساب کاربری ندارید؟</string>
+    <string name="edit">تغییر</string>
+    <string name="changePass">تعویض رمزعبور</string>
+    <string name="logOut">خروج از حساب</string>
+    <string name="yourGameMail">ایمیل متصل به اکانت</string>
+    <string name="yourGamePass">رمز عبور</string>
+    <string name="accountName">"نام اکانت"</string>
+    <string name="yourAcountName">نام اکانت شما</string>
+    <string name="amount">مقدار</string>
+    <string name="price">مبلغ</string>
+    <string name="purchase">پرداخت</string>
+    <string name="message">پیام...</string>
+    <string name="pleaseLoginToUseGChat">برای استفاده از چت جهانی لطفا وارد حساب خود شوید</string>
+
+
+</resources>

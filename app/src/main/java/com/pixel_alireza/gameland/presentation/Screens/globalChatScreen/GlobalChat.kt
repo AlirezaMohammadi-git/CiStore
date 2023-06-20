@@ -59,6 +59,8 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun GlobalChat(context: Context, viewModel: ChatViewModel = hiltViewModel()) {
+
+    //toasting errors to user
     LaunchedEffect(key1 = true) {
         viewModel.toastEvent.collectLatest { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -170,7 +172,7 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                         viewModel::onChangeMessage.invoke(it)
                     },
                     placeholder = {
-                        Text(text = "Message...")
+                        Text(text = stringResource(id = R.string.message))
                     },
                     modifier = Modifier.fillMaxWidth(),
                     trailingIcon = {
@@ -242,7 +244,7 @@ fun NoUsernameScreen() {
                     .size(300.dp)
                     .align(Alignment.CenterHorizontally)
             )
-            Text(text = "Please Login to join global chat!")
+            Text(text = stringResource(id = R.string.pleaseLoginToUseGChat))
         }
     }
 }

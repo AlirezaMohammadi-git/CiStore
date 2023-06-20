@@ -28,10 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.gameland.R
 import com.pixel_alireza.gameland.utils.Screen
 
 
@@ -49,7 +51,7 @@ fun ChangeUsername(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Username") },
+                title = { Text(text = stringResource(id = R.string.username)) },
                 modifier = Modifier,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -79,7 +81,7 @@ fun ChangeUsername(
                         } else {
                             Toast.makeText(
                                 context,
-                                "Username most be lower than 16 character",
+                                R.string.usernameLength,
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -133,7 +135,7 @@ fun ChangeUsername(
                         } else {
                             Toast.makeText(
                                 context,
-                                "Username most be lower than 16 character",
+                                R.string.usernameLength,
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

@@ -28,10 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.gameland.R
 import com.pixel_alireza.gameland.utils.Screen
 
 
@@ -63,7 +65,7 @@ fun UpdatePasswordScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Change password") },
+                title = { Text(text = stringResource(id = R.string.changeUsername)) },
                 modifier = Modifier,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -92,7 +94,7 @@ fun UpdatePasswordScreen(
                                 } else {
                                     Toast.makeText(
                                         context,
-                                        "passwords not same",
+                                        R.string.passNotSame,
                                         Toast.LENGTH_SHORT
                                     )
                                         .show()
@@ -100,14 +102,14 @@ fun UpdatePasswordScreen(
                             } else {
                                 Toast.makeText(
                                     context,
-                                    "password most be more than 8 character",
+                                    R.string.passMostBe8,
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
                         } else {
                             Toast.makeText(
                                 context,
-                                "please fill all fields",
+                                R.string.pleaseFillAll,
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -133,9 +135,9 @@ fun UpdatePasswordScreen(
             OutlinedTextField(
                 value = currentPassword.value,
                 onValueChange = { currentPassword.value = it },
-                placeholder = { Text(text = "current password") },
+                placeholder = { Text(text = stringResource(id = R.string.currentPass)) },
                 shape = MaterialTheme.shapes.large,
-                label = { Text(text = "current password") },
+                label = { Text(text = stringResource(id = R.string.currentPass) ) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     secondTextFieldFocus.requestFocus()
@@ -149,9 +151,9 @@ fun UpdatePasswordScreen(
             OutlinedTextField(
                 value = newPassword.value,
                 onValueChange = { newPassword.value = it },
-                placeholder = { Text(text = "new password") },
+                placeholder = { Text(text = stringResource(id = R.string.newPass)) },
                 shape = MaterialTheme.shapes.large,
-                label = { Text(text = "new password") },
+                label = { Text(text = stringResource(id = R.string.newPass)) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     thirdTextFieldFocus.requestFocus()
@@ -164,9 +166,9 @@ fun UpdatePasswordScreen(
             OutlinedTextField(
                 value = confirmNewPassword.value,
                 onValueChange = { confirmNewPassword.value = it },
-                placeholder = { Text(text = "confirm new password") },
+                placeholder = { Text(text = stringResource(id = R.string.confirmNewPass)) },
                 shape = MaterialTheme.shapes.large,
-                label = { Text(text = "confirm new password") },
+                label = { Text(text = stringResource(id = R.string.confirmNewPass)) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     if (
@@ -187,7 +189,7 @@ fun UpdatePasswordScreen(
                             } else {
                                 Toast.makeText(
                                     context,
-                                    "passwords not same",
+                                    R.string.passNotSame,
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
@@ -195,14 +197,14 @@ fun UpdatePasswordScreen(
                         } else {
                             Toast.makeText(
                                 context,
-                                "password most be more than 8 character",
+                                R.string.passMostBe8,
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {
                         Toast.makeText(
                             context,
-                            "please fill all fields",
+                            R.string.pleaseFillAll,
                             Toast.LENGTH_SHORT
                         ).show()
                     }

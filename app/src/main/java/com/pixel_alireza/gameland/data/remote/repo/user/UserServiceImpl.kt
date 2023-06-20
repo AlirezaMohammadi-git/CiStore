@@ -32,7 +32,7 @@ class UserServiceImpl @Inject constructor(
     private val emailKey = "email"
     private val loginTime = "loginTime"
 
-    override suspend fun signUp(username: String, email: String, password: String): Boolean {
+    override suspend fun signUp(username: String, email: String, password: String): SignUpResponse {
         return try {
             val res = client.post<SignUpResponse> {
                 url(UserService.Endpoints.signUp.url)
@@ -42,25 +42,17 @@ class UserServiceImpl @Inject constructor(
                 contentType(ContentType.Application.Json)
                 body = myObject
             }
-            Log.e(TAG.Error.tag, "signUp: $res")
-            if (res.res) {
-                Log.e(TAG.Error.tag, "signUp: $res")
                 saveUsername(username)
                 saveEmail(email)
                 signIn(email, password)//for token
-                true
-            } else {
-                Log.e(TAG.Error.tag, "signUp(repo): Something went wrong with server")
-                false
-            }
+                res
         } catch (e: Exception) {
-            Log.e(TAG.Error.tag, "signUp: ${e.message}")
             e.printStackTrace()
-            false
+            SignUpResponse(false,e.message.toString())
         }
     }
 
-    override suspend fun signIn(email: String, password: String): Boolean {
+    override suspend fun signIn(email: String, password: String): SignInResponse {
         return try {
             val res = client.post<SignInResponse> {
                 url(UserService.Endpoints.signIn.url)
@@ -70,22 +62,16 @@ class UserServiceImpl @Inject constructor(
                 contentType(ContentType.Application.Json)
                 body = auth
             }
-            Log.i(TAG.Info.tag, "signIn: ${res.res}")
-            if (res.res) {
-                saveToken(res.token)
-                loadFromSharePref()
-                val secret = getSecretInfo(TokenInMemory.token ?: "NULL").username
-                saveUsername(secret)
-                saveEmail(email)
-                saveLoginTime(System.currentTimeMillis())
-                true
-            } else {
-                false
-            }
+            saveToken(res.token)
+            loadFromSharePref()
+            val secret = getSecretInfo(TokenInMemory.token ?: "NULL").username
+            saveUsername(secret)
+            saveEmail(email)
+            saveLoginTime(System.currentTimeMillis())
+            res
         } catch (e: Exception) {
-            Log.e(TAG.Error.tag, "signUp: ${e.message}")
             e.printStackTrace()
-            false
+            SignInResponse(res = false , token = null , message = e.message)
         }
     }
 
@@ -144,7 +130,7 @@ class UserServiceImpl @Inject constructor(
     }
 
     override fun getToken(): String? {
-       return sharedPref.getString(tokenKey, null)
+        return sharedPref.getString(tokenKey, null)
     }
 
     override fun loadFromSharePref() {

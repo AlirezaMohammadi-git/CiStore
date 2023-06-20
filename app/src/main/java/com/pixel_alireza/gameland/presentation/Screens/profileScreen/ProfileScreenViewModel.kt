@@ -13,6 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +30,9 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
     val currentPass = mutableStateOf("")
     val newPass = mutableStateOf("")
     val confirmNewPass = mutableStateOf("")
+
+    private val _toastEvent = MutableSharedFlow<String>() //mutable version
+    val toastEvent = _toastEvent.asSharedFlow() //immutable version
 
     fun loadInfo() {
         userService.loadFromSharePref()
@@ -54,20 +59,22 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
     fun signIn(result: (Boolean) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val res = userService.signIn(emailValue.value, passwordValue.value)
-            Log.i(TAG.Info.tag, "signIn: $res")
-            if (res) {
+            Log.e(TAG.Error.tag, "signIn: $res", )
+            if (res.res){
                 result.invoke(true)
-            } else {
+            }else{
+                _toastEvent.emit(res.message ?: "Unknown error")
+
                 result.invoke(false)
             }
-
         }
     }
 
     fun signUp(result: (Boolean) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val res = userService.signUp(username.value, emailValue.value, passwordValue.value)
-            result.invoke(res)
+            _toastEvent.emit(res.message)
+            result.invoke(res.res)
         }
     }
 
@@ -99,6 +106,8 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
                 is Resource.Success -> {
                     onResult.invoke(res.data ?: "password updated")
                 }
+
+                else -> {}
             }
         }
     }

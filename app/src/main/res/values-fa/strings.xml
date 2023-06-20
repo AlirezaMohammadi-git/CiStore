@@ -6,8 +6,8 @@
     <string name="signUp">ثبت نام</string>
     <string name="username">نام کاربری</string>
     <string name="email">ایمیل</string>
-    <string name="password">رمز عبور</string>
-    <string name="confirmPass">تایید رمز عبور</string>
+    <string name="password">رمز عبور (اعداد انگلیسی)</string>
+    <string name="confirmPass">تایید رمز عبور(اعداد انگلیسی)</string>
     <string name="passMostBe8">رمز باید بیشتر از ۸ حرف باشد</string>
     <string name="pleaseUsername">لطفا نام کاربری را وارد کنید</string>
     <string name="pleaseEmail">لطفا نام کاربری را وارد کنید</string>
@@ -35,6 +35,12 @@
     <string name="publicChat">چت عمومی</string>
     <string name="connecting">درحال اتصال</string>
     <string name="whatingForNetwork">در انتظار شبکه...</string>
+    <string name="usernameLength">نام کاربری باید بین ۲ و ۱۶ کاراکتر باشد</string>
+    <string name="changeUsername">تغییر نام کاربری</string>
+    <string name="pleaseFillAll">لطفا همه باکس ها را کامل کنید</string>
+    <string name="currentPass">رمز فعلی</string>
+    <string name="newPass">رمز جدید</string>
+    <string name="confirmNewPass">تایید رمز جدید</string>
 
 
 </resources>

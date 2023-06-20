@@ -2,12 +2,14 @@ package com.pixel_alireza.gameland.data.remote.repo.user
 
 import com.example.chatapp.utils.Resource
 import com.pixel_alireza.gameland.data.remote.model.auth.model.SecretInfo
+import com.pixel_alireza.gameland.data.remote.model.auth.model.SignInResponse
+import com.pixel_alireza.gameland.data.remote.model.auth.model.SignUpResponse
 import com.pixel_alireza.gameland.utils.Constants
 import io.ktor.http.HttpStatusCode
 
 interface UserService {
-    suspend fun signUp(username: String, email: String, password: String): Boolean
-    suspend fun signIn(email: String, password: String): Boolean
+    suspend fun signUp(username: String, email: String, password: String): SignUpResponse
+    suspend fun signIn(email: String, password: String): SignInResponse
     suspend fun getSecretInfo(token: String): SecretInfo
     suspend fun updateUsername(username: String, token: String)
     suspend fun authenticate(token: String): HttpStatusCode

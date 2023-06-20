@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,6 +42,14 @@ fun SignUp(
     viewModel: ProfileScreenViewModel, context: Context, onLogInClicked: () -> Unit,
     onSignUpClicked: () -> Unit
 ) {
+
+
+    LaunchedEffect(key1 = true ){
+        viewModel.toastEvent.collect {
+            Toast.makeText(context, it , Toast.LENGTH_SHORT).show()
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -142,6 +151,8 @@ fun SignUp(
                     Toast.makeText(context, R.string.pleasePass, Toast.LENGTH_SHORT).show()
                 } else if (confPass.isBlank()) {
                     Toast.makeText(context, R.string.pleaseConfPass, Toast.LENGTH_SHORT).show()
+                }else if (username.length > 16 || username.length < 2){
+                    Toast.makeText(context, R.string.usernameLength, Toast.LENGTH_SHORT).show()
                 } else if (password.length < 8) {
                     Toast.makeText(
                         context,
@@ -154,9 +165,6 @@ fun SignUp(
                     viewModel.signUp {
                         if (it) {
                             onSignUpClicked.invoke()
-                        } else {
-                            Toast.makeText(context, R.string.somethingWentWrong, Toast.LENGTH_SHORT)
-                                .show()
                         }
                     }
                 }

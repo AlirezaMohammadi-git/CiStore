@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,6 +41,7 @@ import com.pixel_alireza.gameland.presentation.profileScreen.EmailField
 import com.pixel_alireza.gameland.presentation.profileScreen.PasswordField
 import com.pixel_alireza.gameland.utils.Screen
 import com.pixel_alireza.gameland.utils.TAG
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -50,6 +52,14 @@ fun SignIn(
     onSignUpClicked: () -> Unit,
     navigation : NavController
 ) {
+
+
+    //toasting errors to user
+    LaunchedEffect(key1 = true) {
+        viewModel.toastEvent.collectLatest { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     Column(
@@ -123,9 +133,6 @@ fun SignIn(
                     viewModel.signIn {
                         if (it) {
                             onLoginClicked.invoke()
-                        } else {
-                            Toast.makeText(context, R.string.somethingWentWrong, Toast.LENGTH_SHORT)
-                                .show()
                         }
                     }
                 }

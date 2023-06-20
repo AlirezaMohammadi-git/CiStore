@@ -32,4 +32,10 @@
     <string name="publicChat">Public chat</string>
     <string name="connecting">Connecting...</string>
     <string name="whatingForNetwork">Whaiting for network...</string>
+    <string name="usernameLength">Username must be between 2 and 16 character</string>
+    <string name="changeUsername">Change Username</string>
+    <string name="pleaseFillAll">Please fill all fields</string>
+    <string name="currentPass">current password</string>
+    <string name="newPass">new password</string>
+    <string name="confirmNewPass">confirm new password</string>
 </resources>

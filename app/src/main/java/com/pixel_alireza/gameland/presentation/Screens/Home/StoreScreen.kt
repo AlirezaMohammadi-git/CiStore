@@ -63,8 +63,6 @@ fun StoreScreen(
         }
     }
 
-    Log.e(TAG.Error.tag , "StoreScreen: $loading" )
-
     if (loading.value) {
 
         Box(modifier = Modifier.fillMaxSize() , contentAlignment = Alignment.Center){

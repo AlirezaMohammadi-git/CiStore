@@ -16,8 +16,10 @@ import com.pixel_alireza.gameland.data.remote.repo.chat.socket.ChatSocketService
 import com.pixel_alireza.gameland.utils.TAG
 import com.pixel_alireza.gameland.utils.coroutineExceptionHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -40,6 +42,9 @@ class ChatViewModel @Inject constructor(
 
     private val _socketStatus = mutableStateOf(false)
     val socketStatus = _socketStatus
+
+    private val _loading = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading
 
 
     private var pageNumber = 1
@@ -77,13 +82,13 @@ class ChatViewModel @Inject constructor(
         if (pageNumber > pageSaver) {
             pageSaver += 1
             viewModelScope.launch(coroutineExceptionHandler) {
-                _chatsState.run {
-                    value.isLoading = true
-                }
+                _loading.value = true
                 val res = messageDataSource.getAllMessages(pageNumber).data ?: listOf()
                 val updatedMessages = (_chatsState.value.messages + res)
                 _chatsState.value =
-                    _chatsState.value.copy(messages = updatedMessages, isLoading = false)
+                    _chatsState.value.copy(messages = updatedMessages)
+                delay(800)
+                _loading.value = false
             }
         }
     }

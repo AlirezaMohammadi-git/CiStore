@@ -32,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
@@ -133,21 +134,7 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
 
             val scrollState = rememberLazyListState()
             val lastItem = remember { derivedStateOf { scrollState.layoutInfo.totalItemsCount } }
-            LazyColumn(
-                state = scrollState,
-                modifier = Modifier.weight(1f),
-                reverseLayout = true
-            ) {
-                items(count = chatState.messages.size) {
-                    MessageBoxItem(
-                        isOwnMessage = chatState.messages[it].username == savedUsername,
-                        username = chatState.messages[it].username,
-                        messageText = chatState.messages[it].text,
-                        formattedTime = timeFormatter(chatState.messages[it].timestamp),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
+
 
             LaunchedEffect(scrollState) {
                 snapshotFlow { scrollState.firstVisibleItemIndex }
@@ -160,36 +147,74 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
             }
 
 
+            val loading = remember {
+                mutableStateOf(false)
+            }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 4.dp)
-            ) {
-                TextField(
-                    value = viewModel.messageText.value,
-                    onValueChange = {
-                        viewModel::onChangeMessage.invoke(it)
-                    },
-                    placeholder = {
-                        Text(text = stringResource(id = R.string.message))
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    trailingIcon = {
-                        IconButton(onClick = {
-                            if (viewModel.messageText.value.length > 500) {
-                                Toast.makeText(
-                                    context,
-                                    R.string.limitedCharacter,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            } else viewModel.sendMessage()
-                        }) {
-                            Icon(Icons.Default.Send, "send")
+            LaunchedEffect(key1 = true) {
+                viewModel.loading.collect {
+                    loading.value = it
+                }
+            }
+
+            if (NetworkChecker(context).isInternetConnected){
+                if (loading.value){
+                    Box(modifier = Modifier.fillMaxSize() , contentAlignment = Alignment.Center){
+                        LottieAnimationBuilder(animationAdress = R.raw.iphone_loading , Modifier)
+                    }
+                }else{
+                    LazyColumn(
+                        state = scrollState,
+                        modifier = Modifier.weight(1f),
+                        reverseLayout = true
+                    ) {
+                        items(count = chatState.messages.size) {
+                            MessageBoxItem(
+                                isOwnMessage = chatState.messages[it].username == savedUsername,
+                                username = chatState.messages[it].username,
+                                messageText = chatState.messages[it].text,
+                                formattedTime = timeFormatter(chatState.messages[it].timestamp),
+                                modifier = Modifier.weight(1f)
+                            )
                         }
                     }
-                )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp)
+                ) {
+                    TextField(
+                        value = viewModel.messageText.value,
+                        onValueChange = {
+                            viewModel::onChangeMessage.invoke(it)
+                        },
+                        placeholder = {
+                            Text(text = stringResource(id = R.string.message))
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                if (viewModel.messageText.value.length > 500) {
+                                    Toast.makeText(
+                                        context,
+                                        R.string.limitedCharacter,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else viewModel.sendMessage()
+                            }) {
+                                Icon(Icons.Default.Send, "send")
+                            }
+                        }
+                    )
+                }
+            }else {
+                Box(modifier = Modifier.fillMaxSize() , contentAlignment = Alignment.Center){
+                    LottieAnimationBuilder(animationAdress = R.raw.no_internet_connection  , Modifier)
+                }
             }
+
         }
     }
 }

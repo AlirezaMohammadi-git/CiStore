@@ -63,7 +63,7 @@ fun StoreScreen(
         }
     }
 
-    Log.e(TAG.Error.tag , "StoreScreen: $loading", )
+    Log.e(TAG.Error.tag , "StoreScreen: $loading" )
 
     if (loading.value) {
 

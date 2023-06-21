@@ -13,7 +13,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +36,9 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
 
     private val _toastEvent = MutableSharedFlow<String>() //mutable version
     val toastEvent = _toastEvent.asSharedFlow() //immutable version
+
+    private val _loading = MutableStateFlow(false)
+    val loading : StateFlow<Boolean> = _loading
 
     fun loadInfo() {
         userService.loadFromSharePref()
@@ -57,29 +63,35 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
     }
 
     fun signIn(result: (Boolean) -> Unit) {
+        _loading.value = true
         viewModelScope.launch(coroutineExceptionHandler) {
             val res = userService.signIn(emailValue.value, passwordValue.value)
-            Log.e(TAG.Error.tag, "signIn: $res", )
             if (res.res){
+                delay(3000)
+                _loading.value = false
                 result.invoke(true)
             }else{
                 _toastEvent.emit(res.message ?: "Unknown error")
-
+                _loading.value = false
                 result.invoke(false)
             }
+
         }
     }
 
     fun signUp(result: (Boolean) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
+            _loading.value = true
             val res = userService.signUp(username.value, emailValue.value, passwordValue.value)
             _toastEvent.emit(res.message)
             result.invoke(res.res)
+            _loading.value = false
         }
     }
 
     fun updateUsername(newUsername: String, onResult: (Boolean, String) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
+            _loading.value = true
             val validToken = userService.authenticate(TokenInMemory.token ?: "NULL")
             if (validToken == HttpStatusCode.Unauthorized) {
                 onResult.invoke(false, "your not authenticated")
@@ -88,6 +100,7 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
                 userService.saveUsername(newUsername)
                 onResult.invoke(true, "username changed!")
             }
+            _loading.value = false
         }
     }
 
@@ -97,6 +110,7 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
 
     fun updatePass(onResult: (String) -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
+            _loading.value = true
             val res = userService.updatePass(currentPass.value, newPass.value, emailValue.value)
             when (res) {
                 is Resource.Error -> {
@@ -109,6 +123,7 @@ class ProfileScreenViewModel @Inject constructor(val userService: UserService) :
 
                 else -> {}
             }
+            _loading.value = false
         }
     }
 }

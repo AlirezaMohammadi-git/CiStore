@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +36,8 @@ import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScre
 import com.pixel_alireza.gameland.presentation.profileScreen.EmailField
 import com.pixel_alireza.gameland.presentation.profileScreen.PasswordField
 import com.pixel_alireza.gameland.presentation.profileScreen.UsernameField
+import com.pixel_alireza.gameland.ui.UIFeatures.LoadingScreen
+import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 
 
 @Composable
@@ -43,150 +46,176 @@ fun SignUp(
     onSignUpClicked: () -> Unit
 ) {
 
+    val loading = remember {
+        mutableStateOf(false)
+    }
 
-    LaunchedEffect(key1 = true ){
+    LaunchedEffect(key1 = true) {
         viewModel.toastEvent.collect {
-            Toast.makeText(context, it , Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
+    LaunchedEffect(key1 = true) {
+        viewModel.loading.collect {
+            viewModel.loading.collect {
+                loading.value = it
+            }
+        }
+    }
 
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
+    if (loading.value) {
+        LoadingScreen()
+    } else {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 32.dp, bottom = 32.dp)
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                text = stringResource(id = R.string.signUp),
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold
+
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp, bottom = 32.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.signUp),
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            UsernameField(
+                value = viewModel.username.value,
+                onValueChange = { viewModel.username.value = it },
+                placeHolder = { Text(text = stringResource(id = R.string.username)) },
+                enabled = true
             )
-        }
-
-        UsernameField(
-            value = viewModel.username.value,
-            onValueChange = { viewModel.username.value = it },
-            placeHolder = { Text(text = stringResource(id = R.string.username)) },
-            enabled = true
-        )
-        EmailField(
-            value = viewModel.emailValue.value,
-            onValueChange = { viewModel.emailValue.value = it },
-            placeHolder = { Text(text = stringResource(id = R.string.email)) },
-            enabled = true,
-            isError = true
-        )
-        val passVisibility = remember {
-            mutableStateOf(false)
-        }
-        PasswordField(
-            value = viewModel.passwordValue.value,
-            onValueChange = { viewModel.passwordValue.value = it },
-            placeHolder = { Text(text = stringResource(id = R.string.password)) },
-            enabled = true,
-            SupportText = { if (viewModel.passwordValue.value.isNotBlank()) Text(text = stringResource(id = R.string.passMostBe8)) },
-            EmptySupportText = {},
-            passChar = 8,
-            isFocused = remember {
+            EmailField(
+                value = viewModel.emailValue.value,
+                onValueChange = { viewModel.emailValue.value = it },
+                placeHolder = { Text(text = stringResource(id = R.string.email)) },
+                enabled = true,
+                isError = true
+            )
+            val passVisibility = remember {
                 mutableStateOf(false)
-            },
-            leadingIC = { Icon(imageVector = Icons.Default.Lock, contentDescription = null) },
-            trailingIC = {
-                val image =
-                    if (passVisibility.value) R.drawable.ic_visible_eye else R.drawable.ic_eye_invisible
-                Icon(painter = painterResource(id = image),
-                    contentDescription = null,
-                    modifier = Modifier.clickable { passVisibility.value = !passVisibility.value })
-            },
-            visualTransformation = if (passVisibility.value) VisualTransformation.None else PasswordVisualTransformation()
-        )
-        val confPassVisibility = remember {
-            mutableStateOf(false)
-        }
-        PasswordField(
-            value = viewModel.confPasswordValue.value,
-            onValueChange = { viewModel.confPasswordValue.value = it },
-            placeHolder = { Text(text = stringResource(id = R.string.confirmPass)) },
-            enabled = true,
-            SupportText = { },
-            EmptySupportText = {},
-            passChar = 8,
-            isFocused = remember {
+            }
+            PasswordField(
+                value = viewModel.passwordValue.value,
+                onValueChange = { viewModel.passwordValue.value = it },
+                placeHolder = { Text(text = stringResource(id = R.string.password)) },
+                enabled = true,
+                SupportText = {
+                    if (viewModel.passwordValue.value.isNotBlank()) Text(
+                        text = stringResource(
+                            id = R.string.passMostBe8
+                        )
+                    )
+                },
+                EmptySupportText = {},
+                passChar = 8,
+                isFocused = remember {
+                    mutableStateOf(false)
+                },
+                leadingIC = { Icon(imageVector = Icons.Default.Lock, contentDescription = null) },
+                trailingIC = {
+                    val image =
+                        if (passVisibility.value) R.drawable.ic_visible_eye else R.drawable.ic_eye_invisible
+                    Icon(painter = painterResource(id = image),
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            passVisibility.value = !passVisibility.value
+                        })
+                },
+                visualTransformation = if (passVisibility.value) VisualTransformation.None else PasswordVisualTransformation()
+            )
+            val confPassVisibility = remember {
                 mutableStateOf(false)
-            },
-            leadingIC = { Icon(imageVector = Icons.Default.Lock, contentDescription = null) },
-            trailingIC = {
-                val image =
-                    if (confPassVisibility.value) R.drawable.ic_visible_eye else R.drawable.ic_eye_invisible
-                Icon(painter = painterResource(id = image),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        confPassVisibility.value = !confPassVisibility.value
-                    })
-            },
-            visualTransformation = if (confPassVisibility.value) VisualTransformation.None else PasswordVisualTransformation()
-        )
-        Button(
-            onClick = {
-                //on Sign Up Clicked
+            }
+            PasswordField(
+                value = viewModel.confPasswordValue.value,
+                onValueChange = { viewModel.confPasswordValue.value = it },
+                placeHolder = { Text(text = stringResource(id = R.string.confirmPass)) },
+                enabled = true,
+                SupportText = { },
+                EmptySupportText = {},
+                passChar = 8,
+                isFocused = remember {
+                    mutableStateOf(false)
+                },
+                leadingIC = { Icon(imageVector = Icons.Default.Lock, contentDescription = null) },
+                trailingIC = {
+                    val image =
+                        if (confPassVisibility.value) R.drawable.ic_visible_eye else R.drawable.ic_eye_invisible
+                    Icon(painter = painterResource(id = image),
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            confPassVisibility.value = !confPassVisibility.value
+                        })
+                },
+                visualTransformation = if (confPassVisibility.value) VisualTransformation.None else PasswordVisualTransformation()
+            )
+            Button(
+                onClick = {
+                    //on Sign Up Clicked
 
-                val username = viewModel.username.value
-                val email = viewModel.emailValue.value
-                val password = viewModel.passwordValue.value
-                val confPass = viewModel.confPasswordValue.value
+                    val username = viewModel.username.value
+                    val email = viewModel.emailValue.value
+                    val password = viewModel.passwordValue.value
+                    val confPass = viewModel.confPasswordValue.value
 
-                if (username.isBlank()) {
-                    Toast.makeText(context,  R.string.pleaseUsername, Toast.LENGTH_SHORT).show()
-                } else if (email.isBlank()) {
-                    Toast.makeText(context, R.string.pleaseEmail, Toast.LENGTH_SHORT).show()
-                } else if (password.isBlank()) {
-                    Toast.makeText(context, R.string.pleasePass, Toast.LENGTH_SHORT).show()
-                } else if (confPass.isBlank()) {
-                    Toast.makeText(context, R.string.pleaseConfPass, Toast.LENGTH_SHORT).show()
-                }else if (username.length > 16 || username.length < 2){
-                    Toast.makeText(context, R.string.usernameLength, Toast.LENGTH_SHORT).show()
-                } else if (password.length < 8) {
-                    Toast.makeText(
-                        context,
-                        R.string.passMostBe8,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (password != confPass) {
-                    Toast.makeText(context, R.string.passNotSame , Toast.LENGTH_SHORT).show()
-                } else {
-                    viewModel.signUp {
-                        if (it) {
-                            onSignUpClicked.invoke()
+                    if (username.isBlank()) {
+                        Toast.makeText(context, R.string.pleaseUsername, Toast.LENGTH_SHORT).show()
+                    } else if (email.isBlank()) {
+                        Toast.makeText(context, R.string.pleaseEmail, Toast.LENGTH_SHORT).show()
+                    } else if (password.isBlank()) {
+                        Toast.makeText(context, R.string.pleasePass, Toast.LENGTH_SHORT).show()
+                    } else if (confPass.isBlank()) {
+                        Toast.makeText(context, R.string.pleaseConfPass, Toast.LENGTH_SHORT).show()
+                    } else if (username.length > 16 || username.length < 2) {
+                        Toast.makeText(context, R.string.usernameLength, Toast.LENGTH_SHORT).show()
+                    } else if (password.length < 8) {
+                        Toast.makeText(
+                            context,
+                            R.string.passMostBe8,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (password != confPass) {
+                        Toast.makeText(context, R.string.passNotSame, Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.signUp {
+                            if (it) {
+                                onSignUpClicked.invoke()
+                            }
                         }
                     }
-                }
 
-            }, modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Sign Up")
-        }
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 32.dp, bottom = 32.dp)
-        ) {
-            Text(text = stringResource(id = R.string.alreadyHaveAcc), fontWeight = FontWeight.Light)
-            TextButton(onClick = {
-                onLogInClicked.invoke()
-            }) {
-                Text(text = stringResource(id = R.string.login))
+                }, modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Text(text = "Sign Up")
+            }
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp, bottom = 32.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.alreadyHaveAcc),
+                    fontWeight = FontWeight.Light
+                )
+                TextButton(onClick = {
+                    onLogInClicked.invoke()
+                }) {
+                    Text(text = stringResource(id = R.string.login))
+                }
             }
         }
     }

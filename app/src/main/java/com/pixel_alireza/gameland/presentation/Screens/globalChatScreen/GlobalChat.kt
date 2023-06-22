@@ -131,10 +131,8 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                 .padding(it)
         ) {
 
-
             val scrollState = rememberLazyListState()
             val lastItem = remember { derivedStateOf { scrollState.layoutInfo.totalItemsCount } }
-
 
             LaunchedEffect(scrollState) {
                 snapshotFlow { scrollState.firstVisibleItemIndex }
@@ -145,7 +143,6 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                         }
                     }
             }
-
 
             val loading = remember {
                 mutableStateOf(false)
@@ -158,11 +155,6 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
             }
 
             if (NetworkChecker(context).isInternetConnected){
-                if (loading.value){
-                    Box(modifier = Modifier.fillMaxSize() , contentAlignment = Alignment.Center){
-                        LottieAnimationBuilder(animationAdress = R.raw.iphone_loading , Modifier)
-                    }
-                }else{
                     LazyColumn(
                         state = scrollState,
                         modifier = Modifier.weight(1f),
@@ -177,9 +169,14 @@ fun ChatScreen(viewModel: ChatViewModel, savedUsername: String, chatState: ChatS
                                 modifier = Modifier.weight(1f)
                             )
                         }
+                        item {
+                            if (loading.value){
+                                Row (horizontalArrangement = Arrangement.Center , modifier = Modifier.fillMaxWidth()){
+                                    LottieAnimationBuilder(animationAdress = R.raw.iphone_loading , Modifier )
+                                }
+                            }
+                        }
                     }
-                }
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

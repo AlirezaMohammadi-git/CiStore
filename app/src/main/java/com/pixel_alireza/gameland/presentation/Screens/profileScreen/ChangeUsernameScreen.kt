@@ -54,7 +54,7 @@ fun ChangeUsername(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(id = R.string.username)) },
+                title = { Text(text = stringResource(id = R.string.changeUsername)) },
                 modifier = Modifier,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {

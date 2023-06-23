@@ -25,3 +25,5 @@ A coin shop with jwt authentication and chat feature.
 ## Video
 watch video of this app in my linkedIn page:
 https://www.linkedin.com/in/alireza-m-546b2b270
+## 🛠 Skills
+Jetpack compose , ktor client , webSocket , MVVM architecture , ROOM ORM , coil , Dagger-Hilt , lottie animations

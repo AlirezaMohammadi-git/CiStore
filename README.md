@@ -10,6 +10,8 @@ A coin shop with jwt authentication and chat feature.
 - two language support (persian-english)
 - jwt authentication
 
+## Server Side 
+https://github.com/AlirezaMohammadi-git/CiStore-Server
 
 ## Video
 watch video of this app in my linkedIn page:

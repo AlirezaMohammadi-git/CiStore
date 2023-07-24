@@ -60,7 +60,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material3:material3:1.2.0-alpha01'
@@ -87,7 +87,7 @@ dependencies {
 
 
     //kotlin serializable
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 
 
     //navigation-compose
@@ -95,13 +95,12 @@ dependencies {
 
 
     //Room ORM
-
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
 
     //coil
-    implementation("io.coil-kt:coil-compose:2.3.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
 
     //system ui controller
@@ -116,6 +115,9 @@ dependencies {
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
+
+
+
 
 
 

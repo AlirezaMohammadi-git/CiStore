@@ -1,4 +1,4 @@
-package com.pixel_alireza.gameland.presentation.Screens.Home
+package com.pixel_alireza.gameland.presentation.Screens.Home.items
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

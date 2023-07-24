@@ -17,7 +17,6 @@ import com.pixel_alireza.gameland.presentation.Screens.RoomScreen.RoomScreen
 import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
 import com.pixel_alireza.gameland.presentation.Screens.SignUp.SignUp
 import com.pixel_alireza.gameland.presentation.Screens.SrearchScreen.SearchScreen
-import com.pixel_alireza.gameland.presentation.Screens.addNewCustom.AddNewCustom
 import com.pixel_alireza.gameland.presentation.Screens.globalChatScreen.GlobalChat
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ChangeUsername
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScreen
@@ -74,9 +73,6 @@ fun Navigation(
         }
         composable(route = Screen.SettingsScreen.rout) {
             SettingsScreen()
-        }
-        composable(route = Screen.AddNewCustomScreen.rout) {
-            AddNewCustom()
         }
         composable(route = Screen.SignInScreen.rout) {
             SignIn(

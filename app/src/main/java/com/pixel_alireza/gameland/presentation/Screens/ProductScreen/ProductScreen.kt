@@ -71,7 +71,7 @@ fun ProductScreen(
             text = viewModel
                 .storeData
                 .value
-                .amount.toString() + " " +
+                .name.toString() + " " +
                     endPointChooser(gamename = viewModel.storeData.value.name),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.ExtraBold
@@ -137,7 +137,7 @@ fun ProductScreen(
 
 
         Text(
-            text = stringResource(id = R.string.amount) + " : ${stylePrice((viewModel.storeData.value.amount * viewModel.productCount.value).toString())}  ${
+            text = stringResource(id = R.string.amount) + " : ${stylePrice((viewModel.storeData.value.price * viewModel.productCount.value).toString())}  ${
                 endPointChooser(
                     viewModel.storeData.value.name
                 )

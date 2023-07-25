@@ -13,7 +13,6 @@ import com.pixel_alireza.gameland.presentation.Screens.CartScreen.CartScreen
 import com.pixel_alireza.gameland.presentation.Screens.CustomRoomScreen.GlobalScreen
 import com.pixel_alireza.gameland.presentation.Screens.Home.StoreScreen
 import com.pixel_alireza.gameland.presentation.Screens.ProductScreen.ProductScreen
-import com.pixel_alireza.gameland.presentation.Screens.RoomScreen.RoomScreen
 import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
 import com.pixel_alireza.gameland.presentation.Screens.SignUp.SignUp
 import com.pixel_alireza.gameland.presentation.Screens.SrearchScreen.SearchScreen
@@ -60,10 +59,6 @@ fun Navigation(
         }
         composable(route = Screen.SearchScreen.rout) {
             SearchScreen()
-        }
-        composable(route = Screen.RoomScreen.rout) {
-            RoomScreen()
-
         }
         composable(route = Screen.ChatScreen.rout) {
             GlobalChat(context)

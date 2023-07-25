@@ -69,14 +69,17 @@ fun stylePrice(price: String): String {
         if (newPrice.first() == ',') {
             newPrice = newPrice.substring(startIndex = 1)
         }
-//        newPrice.reversed() + "USD"
-        newPrice.reversed()
+       newPrice.reversed()
     } else {
-//        price + "USD"
         price
     }
 }
 
+
+
+fun String.addCurrency() : String {
+return "$currency $this"
+}
 
 fun amountLine(price: Int, count: Int, currency: String): String {
     val res = price * count

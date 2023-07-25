@@ -18,7 +18,7 @@ class ProductViewModel
     private val productDao: ProductDao
 ) : ViewModel() {
 
-    private val _storeData = mutableStateOf(StoreData("", -1, -1, "", -1, "" , 1))
+    private val _storeData = mutableStateOf(StoreData("", -1, "", "", -1 ))
     val storeData: State<StoreData> = _storeData
 
     private val _email = mutableStateOf("")

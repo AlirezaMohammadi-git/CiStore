@@ -94,11 +94,9 @@ fun StoreScreen(
             ) {
                 items(filteredItems.size) {
                     GameCardItems(
-                        count = filteredItems[it].amount,
                         price = filteredItems[it].price,
                         game = filteredItems[it].name,
                         imageURL = filteredItems[it].imageURL,
-                        priority = filteredItems[it].priority,
                         id = filteredItems[it].id,
                         onCardClicked = { storeData ->
                             onNavigateToProductScreen.invoke(storeData.id)

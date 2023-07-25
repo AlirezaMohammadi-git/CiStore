@@ -24,11 +24,9 @@ import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 
 @Composable
 fun GameCardItems(
-    count: Int,
     price: Int,
     game: String,
     imageURL: String,
-    priority: Int,
     id: String,
     onCardClicked: (StoreData) -> Unit
 ) {
@@ -41,10 +39,8 @@ fun GameCardItems(
                 onCardClicked.invoke(
                     StoreData(
                         game,
-                        count,
                         price,
                         imageURL,
-                        priority,
                         id,
                         1
                     )
@@ -79,11 +75,6 @@ fun GameCardItems(
                         modifier = Modifier
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = count.toString(),
-                        style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier
-                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))

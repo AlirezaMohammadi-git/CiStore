@@ -1,6 +1,5 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.State
@@ -68,5 +67,9 @@ class StoreViewModel @Inject constructor(
             e.printStackTrace()
         }
 
+    }
+
+    fun onEachBannerCardClicked( bannerURL : String ){
+        //todo
     }
 }

@@ -13,6 +13,10 @@ data class StoreData(
     val imageURL: String,
     @PrimaryKey
     val id: String,
+    val discountedPrice : Int = 0 ,
+//    // we use this tag for chip list filtering :
+//    val tag : String ,
+    // this one is used for purchase :
     var productCount: Int = 1
 )
 

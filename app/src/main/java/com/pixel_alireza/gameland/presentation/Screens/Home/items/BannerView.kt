@@ -20,7 +20,7 @@ import com.example.gameland.R
 
 
 @Composable
-fun <T> BannerView(image: T) {
+fun  BannerView(image: String) {
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .components {
             if (SDK_INT >= 28) {
@@ -50,9 +50,6 @@ fun BannerViewPreview() {
     Column {
         BannerView(
             "https://media.tenor.com/CDA2oKU_vusAAAAM/gif-me.gif",
-        )
-        BannerView(
-            R.drawable.cod_mobile,
         )
     }
 

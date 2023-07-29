@@ -56,7 +56,6 @@ class ProductViewModel
                 value = newValue
             }
         }
-
     }
 
     fun onAddMoreProduct() {

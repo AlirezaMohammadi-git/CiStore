@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.pixel_alireza.gameland.presentation.Screens.CartScreen.CartScreen
-import com.pixel_alireza.gameland.presentation.Screens.CustomRoomScreen.GlobalScreen
 import com.pixel_alireza.gameland.presentation.Screens.Home.StoreScreen
 import com.pixel_alireza.gameland.presentation.Screens.ProductScreen.ProductScreen
 import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
@@ -40,18 +39,6 @@ fun Navigation(
         composable(route = Screen.HomeScreen.rout) {
             StoreScreen { id ->
                 navController.navigate("${Screen.ProductScreen.rout}/$id")
-            }
-        }
-        composable(route = Screen.GlobalScreen.rout) {
-            GlobalScreen(
-                onSearchBarClicked = {
-                    navController.navigate(Screen.SearchScreen.rout)
-                },
-                onAddCustomClicked = {
-                    navController.navigate(Screen.AddNewCustomScreen.rout)
-                }
-            ) {
-                navController.navigate(Screen.RoomScreen.rout)
             }
         }
         composable(route = Screen.ProfileScreen.rout) {

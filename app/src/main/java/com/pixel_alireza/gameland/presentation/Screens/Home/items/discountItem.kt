@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,34 +39,28 @@ fun DiscountedItem(storeData: StoreData) {
 
     Card(
         shape = MaterialTheme.shapes.large,
-        modifier = Modifier.requiredHeight(250.dp).fillMaxWidth(0.5f)
+        modifier = Modifier.height(220.dp).width(150.dp).padding(8.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(6.dp)
-        ) {
+        Column{
             AsyncImage(
                 model = storeData.imageURL,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .requiredHeight(120.dp)
-                    .clip(shape = MaterialTheme.shapes.large)
+                modifier = Modifier.fillMaxWidth().requiredHeight(90.dp)
             )
             Text(
                 text = storeData.name,
-                modifier = Modifier.padding(top = 8.dp)
-                    .fillMaxWidth(),
+                modifier = Modifier.padding(top = 8.dp , start = 8.dp)
+                ,
                 fontFamily = yekanBakhFont,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End ,
+                fontSize = 11.sp
             )
             Box(
                 modifier = Modifier.fillMaxWidth().fillMaxHeight(),
                 contentAlignment = Alignment.BottomCenter
             ) {
-
-
                 Row(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Start
@@ -74,9 +70,8 @@ fun DiscountedItem(storeData: StoreData) {
                         fontFamily = yekanBakhFont,
                         fontSize = 8.sp,
                         color = MaterialTheme.colorScheme.primary ,
-                        modifier = Modifier.padding( start = 4.dp , bottom = 4.dp )
+                        modifier = Modifier.padding( start = 8.dp , bottom = 8.dp )
                     )
-
                     Spacer(Modifier.requiredWidth(4.dp))
                     Column(
                         verticalArrangement = Arrangement.Bottom,
@@ -84,11 +79,11 @@ fun DiscountedItem(storeData: StoreData) {
                     ) {
                         Text(
                             text = stylePrice(storeData.discountedPrice.toString()),
-                            modifier = Modifier,
+                            modifier = Modifier.padding(4.dp),
                             fontFamily = yekanBakhFont,
                             color = Color.Gray,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
+                            fontSize = 8.sp,
                             textDecoration = TextDecoration.LineThrough,
                             textAlign = TextAlign.Center
                         )
@@ -100,7 +95,7 @@ fun DiscountedItem(storeData: StoreData) {
                             fontFamily = yekanBakhFont,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
+                            fontSize = 11.sp
                         )
                     }
 

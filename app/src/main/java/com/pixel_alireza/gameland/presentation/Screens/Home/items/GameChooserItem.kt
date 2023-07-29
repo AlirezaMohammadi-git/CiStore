@@ -1,6 +1,7 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home.items
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,7 @@ fun GameChooserItem(
     gameName2 : String ,
     gameName3 : String ,
     gameName4 : String ,
+    onImageClick : (Image : Int ) -> Unit
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.toFloat()
     val cardWidth = screenWidth / 4.5
@@ -81,7 +83,10 @@ fun GameChooserItem(
                     Image(
                         painter = painterResource(image),
                         contentDescription = null,
-                        contentScale = ContentScale.Crop
+                        contentScale = ContentScale.Crop ,
+                        modifier = Modifier.clickable {
+                            onImageClick.invoke(image)
+                        }
                     )
                     Surface(
                         modifier = Modifier.fillMaxWidth().fillMaxHeight(0.25f),
@@ -124,5 +129,5 @@ fun GameChooserItemPreview() {
         gameName2 = "کالاف دیوتی موبایل" ,
         gameName3 = "فری فایر" ,
         gameName4 = "پابجی"
-    )
+    ){}
 }

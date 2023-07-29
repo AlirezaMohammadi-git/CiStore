@@ -38,4 +38,14 @@
     <string name="currentPass">current password</string>
     <string name="newPass">new password</string>
     <string name="confirmNewPass">confirm new password</string>
+    <string name="pubg" translatable="false">پابجی موبایل</string>
+    <string name="callOfDutyMobile" translatable="false">کالاف دیوتی موبایل</string>
+    <string name="freefire" translatable="false">فری فایر</string>
+    <string name="asphalt" translatable="false">آسفالت</string>
+    <string name="Enemad" translatable="false">نماد اعتماد و مجوز</string>
+    <string name="EnemadBig" translatable="false">دارای اینماد از وزارت ارشاد کشور</string>
+    <string name="experience" translatable="false">سابقه کاری</string>
+    <string name="experienceBig" translatable="false">دارای هفت سال سابقه در حوضه گیم</string>
+    <string name="security" translatable="false">تضمین امنیت شما</string>
+    <string name="securityBig" translatable="false">اطلاعات شما نزد ما محفوض است</string>
 </resources>

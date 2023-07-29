@@ -1,38 +1,32 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gameland.R
+import com.pixel_alireza.gameland.data.remote.model.store.StoreData
+import com.pixel_alireza.gameland.presentation.Screens.Home.items.BannerView
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.DiscountedItem
-import com.pixel_alireza.gameland.presentation.Screens.Home.items.GameCardItems
+import com.pixel_alireza.gameland.presentation.Screens.Home.items.GameChooserItem
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.ScrollableTitles
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.TrustBadge
-import com.pixel_alireza.gameland.ui.UIFeatures.ChipSample
 import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
 
 
@@ -69,14 +63,18 @@ fun StoreScreen(
         }
     }
 
+    //fixme : this line is only for test :
+    loading.value = false
+
     if (loading.value) {
 
-        Box(modifier = Modifier.fillMaxSize() , contentAlignment = Alignment.Center){
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             LottieAnimationBuilder(animationAdress = R.raw.loading_orange, Modifier.size(68.dp))
         }
 
+
     } else {
-        Column {
+        LazyColumn{
             //////////////////////////////////////////////////////////
             ////////////////////chip list(disabled)///////////////////////////
             //////////////////////////////////////////////////////////
@@ -114,39 +112,110 @@ fun StoreScreen(
                 "https://cdn.4gnews.pt/imagens/free-fire-surpreende-tudo-e-todos-ao-ser-considerado-o-melhor-jogo-mobile-de-2020-og.jpg"
             )
 
-            ScrollableTitles(onEachCardClicked = {
+            item {
+                ScrollableTitles(onEachCardClicked = {
 
-            }, model = sampleList)
+                }, model = sampleList)
+            }
 
 
             //////////////////////////////////////////////////////////
             /////////////////////////trust badge//////////////////////////
             //////////////////////////////////////////////////////////
 
-            Row {
-                TrustBadge(
-                    mainText = "adsfjasdffasd",
-                    secondText = "asdfasdfasdf",
-                    icon = R.drawable.ic_freefire
-                )
-                TrustBadge(
-                    mainText = "asdfasdfasdf",
-                    secondText = "asdfasdfasdf",
-                    icon = R.drawable.ic_pubg
-                )
-            }
 
+            item {
+                LazyRow {
+                    item {
+                        TrustBadge(
+                            stringResource(R.string.Enemad),
+                            stringResource(R.string.EnemadBig),
+                            R.drawable.ic_asphalt
+                        )
+                    }
+                    item {
+                        TrustBadge(
+                            stringResource(R.string.experience),
+                            stringResource(R.string.experienceBig),
+                            R.drawable.ic_asphalt
+                        )
+                    }
+                    item {
+                        TrustBadge(
+                            stringResource(R.string.security),
+                            stringResource(R.string.securityBig),
+                            R.drawable.ic_asphalt
+                        )
+                    }
+                }
+            }
 
             //////////////////////////////////////////////////////////
             /////////////////////////discounted items//////////////////////////
             //////////////////////////////////////////////////////////
 
 
-            Text("New Discounts" , fontSize = 18.sp , fontWeight = FontWeight.Bold)
+            item {
+                Spacer(Modifier.requiredHeight(16.dp))
 
-            LazyRow {
-                items(viewModel.items.value.size){
-                    DiscountedItem(viewModel.items.value[it])
+                Text("New Discounts", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+
+                val storeItems = listOf(
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاdfghdfghdfgف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj" ,
+                        45000000
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                    StoreData(
+                        "۱۰۰۰ سی پی کالاف دیوتی موبایل",
+                        24000000,
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
+                        "klsdjflsfdkj"
+                    ),
+                )
+
+                LazyRow {
+                    items(storeItems.size) {
+                        DiscountedItem(storeItems[it])
+                    }
                 }
             }
 
@@ -156,20 +225,44 @@ fun StoreScreen(
             //////////////////////////////////////////////////////////
 
 
+            item {
 
+                Spacer(Modifier.requiredHeight(16.dp))
 
+                Text("Choose your game", fontSize = 20.sp, fontWeight = FontWeight.Bold)
 
+                GameChooserItem(
+                    R.drawable.ic_pubg,
+                    R.drawable.ic_freefire,
+                    R.drawable.ic_cod,
+                    R.drawable.ic_asphalt,
+                    stringResource(R.string.pubg),
+                    stringResource(R.string.freefire),
+                    stringResource(R.string.callOfDutyMobile),
+                    stringResource(R.string.asphalt),
+                ) { imageResource ->
+                    println(imageResource)
+                }
+            }
 
 
             //////////////////////////////////////////////////////////
             /////////////////////////Support//////////////////////////
             //////////////////////////////////////////////////////////
 
+            //todo : make a  banner for support option
+
+            item {
+                ScrollableTitles(onEachCardClicked = {
+
+                }, model = listOf("https://images.hdqwalls.com/wallpapers/call-of-duty-mobile-4k-new-dd.jpg"))
+            }
 
             //////////////////////////////////////////////////////////
             ////////////////list of main items//////////////////////////
             //////////////////////////////////////////////////////////
 
+            //region list cods (disabled)
 //            LazyColumn(
 //                modifier = Modifier,
 //                contentPadding = PaddingValues(bottom = 8.dp)
@@ -186,7 +279,7 @@ fun StoreScreen(
 //                    )
 //                }
 //            }
-
+            //endregion
 
         }
     }

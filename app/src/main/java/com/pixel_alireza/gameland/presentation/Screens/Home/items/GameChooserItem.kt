@@ -48,8 +48,8 @@ fun GameChooserItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 6.dp)
-            .padding(vertical = 6.dp),
+            .padding(horizontal = 10.dp)
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

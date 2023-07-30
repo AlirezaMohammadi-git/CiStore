@@ -1,28 +1,38 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gameland.R
 import com.pixel_alireza.gameland.data.remote.model.store.StoreData
-import com.pixel_alireza.gameland.presentation.Screens.Home.items.BannerView
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.DiscountedItem
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.GameChooserItem
 import com.pixel_alireza.gameland.presentation.Screens.Home.items.ScrollableTitles
@@ -56,12 +66,14 @@ fun StoreScreen(
         mutableStateOf(true)
     }
 
-    LaunchedEffect(key1 = true) {
-        viewModel.getItems(context)
-        viewModel.loading.collect {
-            loading.value = it
-        }
-    }
+
+    //fixme : use DisposableEffect instead of LaunchedEffect and dispose get requests
+//    LaunchedEffect(key1 = true) {
+//        viewModel.getItems(context)
+//        viewModel.loading.collect {
+//            loading.value = it
+//        }
+//    }
 
     //fixme : this line is only for test :
     loading.value = false
@@ -130,21 +142,21 @@ fun StoreScreen(
                         TrustBadge(
                             stringResource(R.string.Enemad),
                             stringResource(R.string.EnemadBig),
-                            R.drawable.ic_asphalt
+                            R.drawable.verify
                         )
                     }
                     item {
                         TrustBadge(
                             stringResource(R.string.experience),
                             stringResource(R.string.experienceBig),
-                            R.drawable.ic_asphalt
+                            R.drawable.experience
                         )
                     }
                     item {
                         TrustBadge(
                             stringResource(R.string.security),
                             stringResource(R.string.securityBig),
-                            R.drawable.ic_asphalt
+                            R.drawable.security
                         )
                     }
                 }
@@ -158,14 +170,21 @@ fun StoreScreen(
             item {
                 Spacer(Modifier.requiredHeight(16.dp))
 
-                Text("New Discounts", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = "تخفیفات جدید",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                )
 
                 val storeItems = listOf(
                     StoreData(
                         "۱۰۰۰ سی پی کالاdfghdfghdfgف دیوتی موبایل",
                         24000000,
                         "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                        "klsdjflsfdkj" ,
+                        "klsdjflsfdkj",
                         45000000
                     ),
                     StoreData(
@@ -229,20 +248,61 @@ fun StoreScreen(
 
                 Spacer(Modifier.requiredHeight(16.dp))
 
-                Text("Choose your game", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = "بازی خود را انتخاب کنید",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                )
 
-                GameChooserItem(
-                    R.drawable.ic_pubg,
-                    R.drawable.ic_freefire,
-                    R.drawable.ic_cod,
-                    R.drawable.ic_asphalt,
-                    stringResource(R.string.pubg),
-                    stringResource(R.string.freefire),
-                    stringResource(R.string.callOfDutyMobile),
-                    stringResource(R.string.asphalt),
-                ) { imageResource ->
-                    println(imageResource)
+
+                Column(
+
+                ) {
+
+                    GameChooserItem(
+                        R.drawable.ic_pubg,
+                        R.drawable.ic_freefire,
+                        R.drawable.ic_cod,
+                        R.drawable.ic_asphalt,
+                        stringResource(R.string.pubg),
+                        stringResource(R.string.freefire),
+                        stringResource(R.string.callOfDutyMobile),
+                        stringResource(R.string.asphalt),
+                    ) { imageResource ->
+                        println(imageResource)
+                    }
+
+
+                    GameChooserItem(
+                        R.drawable.ic_warzone,
+                        R.drawable.ic_eight_ball,
+                        R.drawable.genshin,
+                        R.drawable.hey_day,
+                        stringResource(R.string.warzone),
+                        stringResource(R.string.eightBall),
+                        stringResource(R.string.genshin),
+                        stringResource(R.string.hey_day),
+                    ) { imageResource ->
+                        println(imageResource)
+                    }
+
+                    GameChooserItem(
+                        R.drawable.of_clans,
+                        R.drawable.calsh_royal,
+                        R.drawable.pubg_new_state,
+                        R.drawable.roblax,
+                        stringResource(R.string.clash_of_clans),
+                        stringResource(R.string.clash_royal),
+                        stringResource(R.string.pubg_new_state),
+                        stringResource(R.string.roblax),
+                    ) { imageResource ->
+                        println(imageResource)
+                    }
+
                 }
+
+
             }
 
 
@@ -253,34 +313,122 @@ fun StoreScreen(
             //todo : make a  banner for support option
 
             item {
-                ScrollableTitles(onEachCardClicked = {
 
-                }, model = listOf("https://images.hdqwalls.com/wallpapers/call-of-duty-mobile-4k-new-dd.jpg"))
+                Spacer(Modifier.requiredHeight(16.dp))
+
+                Text(
+                    text = "پشتیبانی اختصاصی سفارشات",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                )
+
+
+                ScrollableTitles(
+                    onEachCardClicked = {
+
+                    },
+                    model = listOf("https://images.hdqwalls.com/wallpapers/call-of-duty-mobile-4k-new-dd.jpg")
+                )
+            }
+
+
+            //////////////////////////////////////////////////////////
+            /////////////////////////two squarer picture//////////////////////////
+            //////////////////////////////////////////////////////////
+
+            item {
+
+                val screenWidth = LocalConfiguration.current.screenWidthDp.toFloat()
+                val cardWidth = screenWidth / 2.2
+
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_pubg),
+                        contentDescription = null,
+                        modifier = Modifier.requiredWidth(cardWidth.dp).requiredHeight(cardWidth.dp)
+                            .clip(shape = MaterialTheme.shapes.medium)
+                    )
+
+                    Image(
+                        painter = painterResource(R.drawable.ic_asphalt),
+                        contentDescription = null,
+                        modifier = Modifier.requiredWidth(cardWidth.dp).requiredHeight(cardWidth.dp)
+                            .clip(shape = MaterialTheme.shapes.medium)
+                    )
+                }
+
             }
 
             //////////////////////////////////////////////////////////
-            ////////////////list of main items//////////////////////////
+            /////////////////////////Big trust badge//////////////////////////
             //////////////////////////////////////////////////////////
 
-            //region list cods (disabled)
-//            LazyColumn(
-//                modifier = Modifier,
-//                contentPadding = PaddingValues(bottom = 8.dp)
-//            ) {
-//                items(filteredItems.size) {
-//                    GameCardItems(
-//                        price = filteredItems[it].price,
-//                        game = filteredItems[it].name,
-//                        imageURL = filteredItems[it].imageURL,
-//                        id = filteredItems[it].id,
-//                        onCardClicked = { storeData ->
-//                            onNavigateToProductScreen.invoke(storeData.id)
-//                        }
-//                    )
-//                }
-//            }
-            //endregion
+            item {
+                Image(
+                    painter = painterResource(R.drawable.banner1),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .padding(horizontal = 8.dp)
+                        .clip(shape = MaterialTheme.shapes.medium)
 
+                )
+            }
+
+            //////////////////////////////////////////////////////////
+            ////////////////social media links//////////////////////////
+            //////////////////////////////////////////////////////////
+
+            item {
+
+                Spacer(Modifier.requiredHeight(16.dp))
+
+                Text(
+                    text = "ما را در شبکه های اجتماعی دنبال کنید",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                )
+
+
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp)
+                        .padding(8.dp),
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.youtube),
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.instagram),
+                            contentDescription = null,
+                            modifier = Modifier.size(40.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.telegram),
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.whatsapp),
+                            contentDescription = null,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                }
+
+            }
         }
     }
 

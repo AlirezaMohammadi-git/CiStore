@@ -48,4 +48,14 @@
     <string name="experienceBig" translatable="false">دارای هفت سال سابقه در حوضه گیم</string>
     <string name="security" translatable="false">تضمین امنیت شما</string>
     <string name="securityBig" translatable="false">اطلاعات شما نزد ما محفوض است</string>
+    <string name="warzone" translatable="false">وارزون موبایل</string>
+    <string name="eightBall" translatable="false">۸ بال</string>
+    <string name="brawel" translatable="false">براول استارز</string>
+    <string name="clash_royal" translatable="false">کلش رویال</string>
+    <string name="genshin" translatable="false">گنشین ایمپکت</string>
+    <string name="hey_day" translatable="false">هی دی</string>
+    <string name="clash_of_clans" translatable="false">کلش او کلنز</string>
+    <string name="roblax" translatable="false">روبلاکس</string>
+    <string name="mobile_legends" translatable="false">موبایل لجندز</string>
+    <string name="pubg_new_state">پابجی نیو استیت</string>
 </resources>

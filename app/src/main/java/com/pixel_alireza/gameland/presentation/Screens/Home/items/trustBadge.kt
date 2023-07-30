@@ -1,7 +1,6 @@
 package com.pixel_alireza.gameland.presentation.Screens.Home.items
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,11 +36,15 @@ fun TrustBadge(
             .clip(shape = MaterialTheme.shapes.small)
             .padding(8.dp)
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.padding(8.dp)
+        ) {
             Image(
                 painter = painterResource(icon),
                 contentDescription = null,
-                modifier = Modifier.size(95.dp)
+                modifier = Modifier.size(75.dp)
             )
             Spacer(Modifier.padding(horizontal = 8.dp))
             Column(
@@ -52,12 +54,13 @@ fun TrustBadge(
                 Text(
                     text = mainText,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
+                    fontSize = 16.sp
                 )
                 Text(
                     text = secondText,
                     textAlign = TextAlign.End,
-                    fontSize = 14.sp
+                    fontWeight = FontWeight.Light,
+                    fontSize = 12.sp
                 )
             }
         }

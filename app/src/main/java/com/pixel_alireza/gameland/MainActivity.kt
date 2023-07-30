@@ -10,11 +10,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -79,10 +81,10 @@ class MainActivity : ComponentActivity() {
                                         Icons.Outlined.Home,
                                     ),
                                     BottomNavItem(
-                                        "Chat",
-                                        Screen.ChatScreen.rout,
-                                        Icons.Filled.Email,
-                                        Icons.Outlined.Email,
+                                        "Search",
+                                        Screen.SearchScreen.rout,
+                                        Icons.Filled.Search ,
+                                        Icons.Outlined.Search ,
                                     ),
                                     BottomNavItem(
                                         "Profile",

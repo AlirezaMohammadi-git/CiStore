@@ -11,12 +11,14 @@ data class StoreData(
     val name: String,
     val price: Int,
     val imageURL: String,
+    val gameTag : String ,
     @PrimaryKey
     val id: String,
-    val discountedPrice : Int = 0 ,
-//    // we use this tag for chip list filtering :
-//    val tag : String ,
-    // this one is used for purchase :
-    var productCount: Int = 1
+    //this one is the more expensive price
+    var discountedPrice : Int = 0 ,
+    // this one is used for purchase and will send to server to save for user cart :
+    var productCount: Int = 1   ,
+    // this one is used for purchase and will send to server to save for user cart :
+    var coinCount : Int = 0
 )
 

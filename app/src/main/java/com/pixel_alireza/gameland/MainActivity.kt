@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -87,11 +88,18 @@ class MainActivity : ComponentActivity() {
                                         Icons.Outlined.Search ,
                                     ),
                                     BottomNavItem(
+                                        "CartScreen",
+                                        Screen.CartScreen.rout,
+                                        Icons.Filled.ShoppingCart ,
+                                        Icons.Outlined.ShoppingCart ,
+                                    ),
+                                    BottomNavItem(
                                         "Profile",
                                         Screen.ProfileScreen.rout,
                                         Icons.Filled.Person,
                                         Icons.Outlined.Person,
                                     ),
+
                                 ),
                                 navController = navController,
                                 onItemClicked = { item ->

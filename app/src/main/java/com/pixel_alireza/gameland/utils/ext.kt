@@ -1,7 +1,6 @@
 package com.pixel_alireza.gameland.utils
 
 import android.util.Log
-import com.example.gameland.R
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 
@@ -24,9 +23,9 @@ sealed class TAG(val tag: String) {
 //}
 
 
-fun endPointChooser(gamename: String): String {
+fun endPointChooser(gameTag: String): String {
 
-    return when (gamename) {
+    return when (gameTag) {
         GameNames.CODM -> {
             "CP"
         }
@@ -79,6 +78,11 @@ fun stylePrice(price: String): String {
 
 fun String.addCurrency() : String {
 return "$currency $this"
+}
+
+
+fun String.addEndPoint(gameTag: String) : String {
+    return "$this ${endPointChooser(gameTag)}"
 }
 
 fun amountLine(price: Int, count: Int, currency: String): String {

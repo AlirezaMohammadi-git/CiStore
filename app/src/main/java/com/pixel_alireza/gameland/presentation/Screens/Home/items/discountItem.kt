@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 import com.pixel_alireza.gameland.ui.theme.yekanBakhFont
+import com.pixel_alireza.gameland.utils.GameNames
 import com.pixel_alireza.gameland.utils.currency
 import com.pixel_alireza.gameland.utils.stylePrice
 
@@ -116,7 +117,8 @@ fun DiscountedItemPreview() {
             name = " سی پی کالاف موبایل",
             price = 400000,
             imageURL = "https://static3.gamerantimages.com/wordpress/wp-content/uploads/2019/11/call-of-duty-mobile-characters-1400x700-2.jpg",
-            id = "a;fjklsd"
+            id = "a;fjklsd" ,
+            gameTag = GameNames.CODM
         )
     )
 }

@@ -72,7 +72,7 @@ fun ProductScreen(
                 .storeData
                 .value
                 .name.toString() + " " +
-                    endPointChooser(gamename = viewModel.storeData.value.name),
+                    endPointChooser(gameTag = viewModel.storeData.value.name),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.ExtraBold
         )

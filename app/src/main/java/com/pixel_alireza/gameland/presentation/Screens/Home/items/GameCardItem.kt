@@ -22,70 +22,70 @@ import coil.compose.rememberAsyncImagePainter
 import com.pixel_alireza.gameland.data.remote.model.store.StoreData
 
 
-@Composable
-fun GameCardItems(
-    price: Int,
-    game: String,
-    imageURL: String,
-    id: String,
-    onCardClicked: (StoreData) -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 16.dp)
-            .clickable {
-                onCardClicked.invoke(
-                    StoreData(
-                        game,
-                        price,
-                        imageURL,
-                        id,
-                        1
-                    )
-                )
-            }
-    ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.Start
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(imageURL),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                Row {
-                    Text(
-                        text = "$game   |",
-                        style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = price.toString(),
-                    style = MaterialTheme.typography.labelSmall,
-                    modifier = Modifier
-                )
-            }
-
-        }
-
-    }
-}
+//@Composable
+//fun GameCardItems(
+//    price: Int,
+//    game: String,
+//    imageURL: String,
+//    id: String,
+//    onCardClicked: (StoreData) -> Unit
+//) {
+//    Card(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(horizontal = 16.dp)
+//            .padding(top = 16.dp)
+//            .clickable {
+//                onCardClicked.invoke(
+//                    StoreData(
+//                        name = game,
+//                        price = price,
+//                        imageURL = imageURL,
+//                        gameTag = id,
+//                        id = ""
+//                    )
+//                )
+//            }
+//    ) {
+//        Column(
+//            verticalArrangement = Arrangement.SpaceAround,
+//            horizontalAlignment = Alignment.Start
+//        ) {
+//            Image(
+//                painter = rememberAsyncImagePainter(imageURL),
+//                contentDescription = null,
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier
+//                    .height(200.dp)
+//                    .fillMaxWidth()
+//            )
+//
+//            Column(
+//                modifier = Modifier
+//                    .padding(16.dp)
+//                    .fillMaxWidth(),
+//                horizontalAlignment = Alignment.Start,
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//
+//                Row {
+//                    Text(
+//                        text = "$game   |",
+//                        style = MaterialTheme.typography.labelLarge,
+//                        modifier = Modifier
+//                    )
+//                    Spacer(modifier = Modifier.width(8.dp))
+//                }
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//                Text(
+//                    text = price.toString(),
+//                    style = MaterialTheme.typography.labelSmall,
+//                    modifier = Modifier
+//                )
+//            }
+//
+//        }
+//
+//    }
+//}

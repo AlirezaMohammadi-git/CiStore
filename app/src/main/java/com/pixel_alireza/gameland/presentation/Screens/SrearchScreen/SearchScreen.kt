@@ -36,58 +36,13 @@ fun SearchScreen(
 ) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
 
-        val storeItems = listOf(
-            StoreData(
-                "۱۰۰۰ سی پی کالاdfghdfghdfgف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj",
-                45000000
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-            StoreData(
-                "۱۰۰۰ سی پی کالاف دیوتی موبایل",
-                24000000,
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.hdqwalls.com%2Fdownload%2Fcall-of-duty-mobile-4k-2019-he-2932x2932.jpg&f=1&nofb=1&ipt=c32fd13409c1e312ec2933e6cf1548830436ff0c7c6f9b7bc23d41682769eff3&ipo=images",
-                "klsdjflsfdkj"
-            ),
-        )
 
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
             searchBar(viewModel)
 
-            FilteredItemList(storeItems)
+            FilteredItemList(listOf())
 
         }
 

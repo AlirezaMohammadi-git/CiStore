@@ -1,41 +1,35 @@
 package com.pixel_alireza.gameland.presentation.Screens.profileScreen
 
-import android.util.Log
-import androidx.compose.foundation.Image
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gameland.R
+import com.pixel_alireza.gameland.data.remote.repo.user.UserServiceImpl
 import com.pixel_alireza.gameland.presentation.Screens.SignIn.SignIn
-import com.pixel_alireza.gameland.presentation.profileScreen.AddressField
-import com.pixel_alireza.gameland.ui.UIFeatures.LottieAnimationBuilder
+import com.pixel_alireza.gameland.ui.theme.yekanBakhFont
 import com.pixel_alireza.gameland.utils.Screen
-import com.pixel_alireza.gameland.utils.TAG
+import io.ktor.client.HttpClient
 
 
 @Composable
@@ -67,9 +61,6 @@ fun ProfileScreen(
         }, onUsernameChange = {
             navController.navigate(Screen.EditUsername.rout)
         },
-            onEditAvatar = {
-
-            },
             onChangePasswordClicked = {
                 navController.navigate(Screen.UpdatePass.rout)
             }
@@ -82,91 +73,123 @@ fun ProfileScreen(
 fun VerifiedScreen(
     viewModel: ProfileScreenViewModel,
     onSignOutClick: () -> Unit,
-    onEditAvatar: () -> Unit,
     onUsernameChange: () -> Unit,
     onChangePasswordClicked: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+
+    Column {
+        Surface(
+            modifier = Modifier.fillMaxWidth()
+                .requiredHeight(150.dp),
         ) {
-            Box(modifier = Modifier, contentAlignment = Alignment.Center) {
-                LottieAnimationBuilder(
-                    modifier = Modifier.size(120.dp), animationAdress = R.raw.gradient
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    text = viewModel.getUsername(),
+                    fontFamily = yekanBakhFont,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge
                 )
-                Image(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .size(80.dp)
-                        .clip(shape = CircleShape)
+
+                Spacer(Modifier.height(4.dp))
+
+                Text(
+                    text = viewModel.emailValue.value,
+                    fontFamily = yekanBakhFont,
+                    fontWeight = FontWeight.Light,
+                    color = Color.Gray
                 )
+
             }
+
         }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            Column() {
-                Box(
+
+        LazyColumn {
+            item {
+                Card(
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 ) {
-                    AddressField(
-                        value = viewModel.username.value,
-                        onValueChange = { viewModel.username.value = it },
-                        placeHolder = {
-                            Text(text = stringResource(id = R.string.username))
-                        },
-                        enabled = false,
-                        number = false
-                    )
-                    TextButton(
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .padding(bottom = 8.dp),
-                        onClick = { onUsernameChange.invoke() }) {
-                        Text(text = stringResource(id = R.string.edit))
+                    Column {
+                        ProfileItems(
+                            itemText = stringResource(R.string.productsSetuation),
+                            icon = R.drawable.baseline_shopping_bag_24
+                        ) {
+                            //todo : implement this feature
+                            println("this is just a test")
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.changeUsername),
+                            icon = R.drawable.baseline_person_24
+                        ) {
+                            onUsernameChange.invoke()
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.changePass),
+                            icon = R.drawable.baseline_lock_24
+                        ) {
+                            onChangePasswordClicked.invoke()
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.contactWithSupport),
+                            icon = R.drawable.baseline_support_agent_24
+                        ) {
+                            //todo : implement this feature
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.rules),
+                            icon = R.drawable.baseline_rule_24
+                        ) {
+                            //todo : implement this feature
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.aboutUS),
+                            icon = R.drawable.baseline_info_24
+                        ) {
+                            //todo : implement this feature
+                        }
+                        ProfileItems(
+                            itemText = stringResource(R.string.logOut),
+                            icon = R.drawable.baseline_logout_24,
+                            lastItem = true
+                        ) {
+                            onSignOutClick.invoke()
+                        }
                     }
                 }
-
-                AddressField(
-                    value = viewModel.emailValue.value,
-                    onValueChange = { },
-                    placeHolder = {
-                        Text(text = stringResource(id = R.string.email))
-                    },
-                    enabled = false,
-                    number = false
-                )
-                Spacer(Modifier.height(16.dp))
-                Button(
-                    modifier = Modifier.fillMaxWidth(0.95f),
-                    onClick = { onChangePasswordClicked.invoke() }) {
-                    Text(text = stringResource(id = R.string.changePass))
-                }
-                Spacer(Modifier.height(16.dp))
-                Button(modifier = Modifier.fillMaxWidth(0.95f),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                    onClick = {
-                        onSignOutClick.invoke()
-                    }) {
-                    Text(text = stringResource(id = R.string.logOut))
-                }
-                LottieAnimationBuilder(
-                    animationAdress = R.raw.pencil_drawing, modifier = Modifier.size(250.dp)
-                )
             }
         }
+
+        Spacer(Modifier.height(16.dp))
+
     }
+
+}
+
+
+@Composable
+@Preview
+fun ToShowPreview(
+
+) {
+    val client = HttpClient()
+    val viewModel = ProfileScreenViewModel(
+        UserServiceImpl(
+            client,
+            LocalContext.current.getSharedPreferences("hello", Context.MODE_PRIVATE)
+        )
+    )
+
+    VerifiedScreen(
+        viewModel,
+        {},
+        {},
+        {},
+    )
 }
 
 

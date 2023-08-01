@@ -8,10 +8,16 @@
       <entry key="CartScreenPreview">
         <State />
       </entry>
-      <entry key="DiscountedItemPreview">
+      <entry key="ProfileItemsPreview">
+        <State />
+      </entry>
+      <entry key="ToShowPreview">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="previewToShowPreview">
         <State />
       </entry>
     </value>

@@ -57,6 +57,10 @@
     <string name="clash_of_clans" translatable="false">کلش او کلنز</string>
     <string name="roblax" translatable="false">روبلاکس</string>
     <string name="mobile_legends" translatable="false">موبایل لجندز</string>
-    <string name="pubg_new_state">پابجی نیو استیت</string>
-    <string name="searchBar">اینجا جستجو کنید</string>
+    <string name="pubg_new_state" translatable="false">پابجی نیو استیت</string>
+    <string name="searchBar" translatable="false">اینجا جستجو کنید</string>
+    <string name="productsSetuation" translatable="false">وضعیت سفارشات</string>
+    <string name="contactWithSupport">تماس با پشتیبانی</string>
+    <string name="rules">قوانین و مقررات</string>
+    <string name="aboutUS">درباره ما</string>
 </resources>

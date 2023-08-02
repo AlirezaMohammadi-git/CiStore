@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gameland.R
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScreenViewModel
@@ -87,7 +88,7 @@ fun SignIn(
             ) {
                 Text(
                     text = stringResource(id = R.string.signIn),
-                    style = MaterialTheme.typography.headlineLarge,
+                    fontSize = 48.sp,
                     fontWeight = FontWeight.Bold
                 )
             }

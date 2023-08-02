@@ -22,8 +22,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -56,73 +59,78 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            GameLandTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
-                ) {
-                    //<editor-fold desc="Some Settings">
-                    val systemUiController = rememberSystemUiController()
-                    systemUiController.setStatusBarColor(
-                        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp), //Your color
-                    )
-                    systemUiController.setNavigationBarColor(
-                        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp), //Your color
-                    )
-                    //</editor-fold>
-                    val navController = rememberNavController()
-                    val backStackEntry = navController.currentBackStackEntryAsState()
-                    Scaffold(
-                        bottomBar = {
-                            MyBottomNavigation(
-                                items = listOf(
-                                    BottomNavItem(
-                                        "Home",
-                                        Screen.HomeScreen.rout,
-                                        Icons.Filled.Home,
-                                        Icons.Outlined.Home,
-                                    ),
-                                    BottomNavItem(
-                                        "Search",
-                                        Screen.SearchScreen.rout,
-                                        Icons.Filled.Search ,
-                                        Icons.Outlined.Search ,
-                                    ),
-                                    BottomNavItem(
-                                        "CartScreen",
-                                        Screen.CartScreen.rout,
-                                        Icons.Filled.ShoppingCart ,
-                                        Icons.Outlined.ShoppingCart ,
-                                    ),
-                                    BottomNavItem(
-                                        "Profile",
-                                        Screen.ProfileScreen.rout,
-                                        Icons.Filled.Person,
-                                        Icons.Outlined.Person,
-                                    ),
 
-                                ),
+
+            GameLandTheme {
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl){
+                    Surface(
+                        modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    ) {
+
+                        //<editor-fold desc="Some Settings">
+                        val systemUiController = rememberSystemUiController()
+                        systemUiController.setStatusBarColor(
+                            color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp), //Your color
+                        )
+                        systemUiController.setNavigationBarColor(
+                            color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp), //Your color
+                        )
+                        //</editor-fold>
+                        val navController = rememberNavController()
+                        val backStackEntry = navController.currentBackStackEntryAsState()
+                        Scaffold(
+                            bottomBar = {
+                                MyBottomNavigation(
+                                    items = listOf(
+                                        BottomNavItem(
+                                            "Home",
+                                            Screen.HomeScreen.rout,
+                                            Icons.Filled.Home,
+                                            Icons.Outlined.Home,
+                                        ),
+                                        BottomNavItem(
+                                            "Search",
+                                            Screen.SearchScreen.rout,
+                                            Icons.Filled.Search ,
+                                            Icons.Outlined.Search ,
+                                        ),
+                                        BottomNavItem(
+                                            "CartScreen",
+                                            Screen.CartScreen.rout,
+                                            Icons.Filled.ShoppingCart ,
+                                            Icons.Outlined.ShoppingCart ,
+                                        ),
+                                        BottomNavItem(
+                                            "Profile",
+                                            Screen.ProfileScreen.rout,
+                                            Icons.Filled.Person,
+                                            Icons.Outlined.Person,
+                                        ),
+
+                                        ),
+                                    navController = navController,
+                                    onItemClicked = { item ->
+                                        if (item.rout != backStackEntry.value?.destination?.route) navController.navigate(
+                                            item.rout
+                                        )
+                                    },
+                                )
+                            },
+                            topBar = {
+                                MyTopAppBar(
+                                    title = stringResource(id = R.string.app_name),
+                                    firstIcon = Pair(first = true, second = Icons.Default.ShoppingCart),
+                                    secondIcon = Pair(first = true, second = Icons.Default.Settings),
+                                    show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,
+                                )
+                            }
+                        ) {
+                            Navigation(
                                 navController = navController,
-                                onItemClicked = { item ->
-                                    if (item.rout != backStackEntry.value?.destination?.route) navController.navigate(
-                                        item.rout
-                                    )
-                                },
-                            )
-                        },
-                        topBar = {
-                            MyTopAppBar(
-                                title = stringResource(id = R.string.app_name),
-                                firstIcon = Pair(first = true, second = Icons.Default.ShoppingCart),
-                                secondIcon = Pair(first = true, second = Icons.Default.Settings),
-                                show = backStackEntry.value?.destination?.route == Screen.HomeScreen.rout,
+                                modifier = Modifier
+                                    .padding(it),
                             )
                         }
-                    ) {
-                        Navigation(
-                            navController = navController,
-                            modifier = Modifier
-                                .padding(it),
-                        )
                     }
                 }
             }

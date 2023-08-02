@@ -55,7 +55,6 @@ fun DiscountedItem(storeData: StoreData) {
                 ,
                 fontFamily = yekanBakhFont,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.End ,
                 fontSize = 11.sp
             )
             Box(

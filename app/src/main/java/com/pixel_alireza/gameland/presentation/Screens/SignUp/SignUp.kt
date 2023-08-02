@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -30,12 +29,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.gameland.R
 import com.pixel_alireza.gameland.presentation.Screens.profileScreen.ProfileScreenViewModel
 import com.pixel_alireza.gameland.presentation.profileScreen.EmailField
 import com.pixel_alireza.gameland.presentation.profileScreen.PasswordField
 import com.pixel_alireza.gameland.presentation.profileScreen.UsernameField
 import com.pixel_alireza.gameland.ui.UIFeatures.LoadingScreen
+import com.pixel_alireza.gameland.ui.theme.yekanBakhFont
 
 
 @Composable
@@ -80,8 +81,7 @@ fun SignUp(
                     .padding(top = 32.dp, bottom = 32.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.signUp),
-                    style = MaterialTheme.typography.headlineLarge,
+                    text = stringResource(id = R.string.signUp), fontSize = 48.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -196,7 +196,7 @@ fun SignUp(
                     .fillMaxWidth(0.5f)
                     .align(Alignment.CenterHorizontally)
             ) {
-                Text(text = "Sign Up")
+                Text(text = stringResource(R.string.signUp), fontFamily = yekanBakhFont)
             }
             Row(
                 horizontalArrangement = Arrangement.Center,

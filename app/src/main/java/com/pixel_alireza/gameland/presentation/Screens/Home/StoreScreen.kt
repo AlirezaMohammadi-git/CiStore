@@ -173,7 +173,6 @@ fun StoreScreen(
                 Text(
                     text = "تخفیفات جدید",
                     fontSize = 18.sp,
-                    textAlign = TextAlign.End,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp)
@@ -259,7 +258,6 @@ fun StoreScreen(
                 Text(
                     text = "بازی خود را انتخاب کنید",
                     fontSize = 18.sp,
-                    textAlign = TextAlign.End,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
 
@@ -318,7 +316,6 @@ fun StoreScreen(
             /////////////////////////Support//////////////////////////
             //////////////////////////////////////////////////////////
 
-            //todo : make a  banner for support option
 
             item {
 
@@ -327,17 +324,18 @@ fun StoreScreen(
                 Text(
                     text = "پشتیبانی اختصاصی سفارشات",
                     fontSize = 18.sp,
-                    textAlign = TextAlign.End,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
 
-
-                ScrollableTitles(
-                    onEachCardClicked = {
-
-                    },
-                    model = listOf("https://images.hdqwalls.com/wallpapers/call-of-duty-mobile-4k-new-dd.jpg")
+                Image(
+                    painter = painterResource(R.drawable.support),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(top = 16.dp , bottom = 16.dp)
+                        .padding(horizontal = 8.dp)
+                        .clip(shape = MaterialTheme.shapes.medium)
                 )
+
             }
 
 
@@ -378,10 +376,10 @@ fun StoreScreen(
 
             item {
                 Image(
-                    painter = painterResource(R.drawable.banner1),
+                    painter = painterResource(R.drawable.permium),
                     contentDescription = null,
                     modifier = Modifier
-                        .padding(top = 16.dp)
+                        .padding(top = 16.dp , )
                         .padding(horizontal = 8.dp)
                         .clip(shape = MaterialTheme.shapes.medium)
 
@@ -399,7 +397,6 @@ fun StoreScreen(
                 Text(
                     text = "ما را در شبکه های اجتماعی دنبال کنید",
                     fontSize = 18.sp,
-                    textAlign = TextAlign.End,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
 

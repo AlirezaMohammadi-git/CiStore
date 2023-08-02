@@ -2,6 +2,7 @@
 
 package com.pixel_alireza.gameland.ui.UIFeatures
 
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,13 +27,13 @@ fun MyTopAppBar(
 
 ) {
     if (show) {
-        TopAppBar(
+        CenterAlignedTopAppBar(
             title = {
                 Text(
                     text = title,
                     fontWeight = FontWeight.Black,
                     fontFamily = FontFamily.Cursive,
-                    fontSize = 28.sp
+                    fontSize = 32.sp
                 )
             },
             colors =

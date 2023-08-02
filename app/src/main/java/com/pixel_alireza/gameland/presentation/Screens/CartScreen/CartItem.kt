@@ -1,7 +1,6 @@
 package com.pixel_alireza.gameland.presentation.Screens.CartScreen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,36 +42,10 @@ fun CartItem(
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.TopEnd
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp).padding(end = 90.dp),
-                horizontalArrangement = Arrangement.End,
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.End
-                ) {
-                    Text(storeData.name, fontFamily = yekanBakhFont, fontWeight = FontWeight.Light)
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        stylePrice(storeData.coinCount.toString()).addEndPoint(storeData.gameTag),
-                        fontSize = 12.sp,
-                        modifier = Modifier, textAlign = TextAlign.End,
-                        fontWeight = FontWeight.Light
-                    )
-                    CountCard(storeData.productCount , onAdd = {}, onMines = { })
+        Row (
+            modifier = Modifier.padding(4.dp)
+        ){
 
-                    Text(
-                        text = stylePrice(storeData.price.toString()).addCurrency(),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.align(Alignment.Start).fillMaxWidth(),
-                        fontSize = 16.sp
-                    )
-
-                }
-            }
 
             AsyncImage(
                 model = storeData.imageURL,
@@ -82,6 +54,37 @@ fun CartItem(
                     .padding(8.dp)
                     .clip(shape = MaterialTheme.shapes.medium)
             )
+
+
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    storeData.name,
+                    fontFamily = yekanBakhFont,
+                    fontSize = 14.sp ,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    stylePrice(storeData.coinCount.toString()).addEndPoint(storeData.gameTag),
+                    fontSize = 12.sp,
+                    modifier = Modifier,
+                    fontWeight = FontWeight.Light
+                )
+                CountCard(storeData.productCount, onAdd = {}, onMines = { })
+
+                Text(
+                    text = stylePrice(storeData.price.toString()).addCurrency(),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.End)
+                        .padding(end = 4.dp, bottom = 4.dp , top = 4.dp),
+                    fontSize = 16.sp
+                )
+
+            }
+
+
         }
     }
 

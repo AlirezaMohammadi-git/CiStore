@@ -1,65 +1,65 @@
 <resources>
-    <string name="app_name">CiStore</string>
-    <string name="signUp">Sign Up</string>
-    <string name="username">Username</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="confirmPass">Confirm password</string>
-    <string name="passMostBe8">Your password most be more than 8 character</string>
-    <string name="pleaseUsername">Please enter username</string>
-    <string name="pleaseEmail">Please enter username</string>
-    <string name="pleasePass">Please enter password</string>
-    <string name="pleaseConfPass">Please confirm password</string>
-    <string name="passNotSame">Your passwords are not same</string>
-    <string name="somethingWentWrong">Something went wrong!</string>
-    <string name="alreadyHaveAcc">Already have an account?</string>
-    <string name="login">Login</string>
-    <string name="signIn">Sign In</string>
-    <string name="dontHaveAcc">Don\'t have an account?</string>
-    <string name="edit">edit</string>
-    <string name="changePass">Change Password</string>
-    <string name="logOut">Log out</string>
-    <string name="yourGameMail">connected email to account</string>
-    <string name="yourGamePass">your game password</string>
-    <string name="accountName">"account name "</string>
-    <string name="yourAcountName">your account name</string>
-    <string name="amount">Amount</string>
-    <string name="price">Price</string>
-    <string name="purchase">Purchase</string>
-    <string name="message">Message...</string>
-    <string name="pleaseLoginToUseGChat">Please login to use global chat</string>
-    <string name="limitedCharacter">your message is too long!</string>
-    <string name="publicChat">Public chat</string>
-    <string name="connecting">Connecting...</string>
-    <string name="whatingForNetwork">Whaiting for network...</string>
-    <string name="usernameLength">Username must be between 2 and 16 character</string>
-    <string name="changeUsername">Change Username</string>
-    <string name="pleaseFillAll">Please fill all fields</string>
-    <string name="currentPass">current password</string>
-    <string name="newPass">new password</string>
-    <string name="confirmNewPass">confirm new password</string>
-    <string name="pubg" translatable="false">پابجی موبایل</string>
-    <string name="callOfDutyMobile" translatable="false">کالاف دیوتی موبایل</string>
-    <string name="freefire" translatable="false">فری فایر</string>
-    <string name="asphalt" translatable="false">آسفالت</string>
-    <string name="Enemad" translatable="false">نماد اعتماد و مجوز</string>
-    <string name="EnemadBig" translatable="false">دارای اینماد از وزارت ارشاد کشور</string>
-    <string name="experience" translatable="false">سابقه کاری</string>
-    <string name="experienceBig" translatable="false">دارای هفت سال سابقه در حوضه گیم</string>
-    <string name="security" translatable="false">تضمین امنیت شما</string>
-    <string name="securityBig" translatable="false">اطلاعات شما نزد ما محفوض است</string>
-    <string name="warzone" translatable="false">وارزون موبایل</string>
-    <string name="eightBall" translatable="false">۸ بال</string>
-    <string name="brawel" translatable="false">براول استارز</string>
-    <string name="clash_royal" translatable="false">کلش رویال</string>
-    <string name="genshin" translatable="false">گنشین ایمپکت</string>
-    <string name="hey_day" translatable="false">هی دی</string>
-    <string name="clash_of_clans" translatable="false">کلش او کلنز</string>
-    <string name="roblax" translatable="false">روبلاکس</string>
-    <string name="mobile_legends" translatable="false">موبایل لجندز</string>
-    <string name="pubg_new_state" translatable="false">پابجی نیو استیت</string>
-    <string name="searchBar" translatable="false">اینجا جستجو کنید</string>
-    <string name="productsSetuation" translatable="false">وضعیت سفارشات</string>
+    <string name="app_name">CiGEM</string>
+    <string name="signUp">ثبت نام</string>
+    <string name="username">نام کاربری</string>
+    <string name="email">ایمیل</string>
+    <string name="password">رمز عبور (اعداد انگلیسی)</string>
+    <string name="confirmPass">تایید رمز عبور(اعداد انگلیسی)</string>
+    <string name="passMostBe8">رمز باید بیشتر از ۸ حرف باشد</string>
+    <string name="pleaseUsername">لطفا نام کاربری را وارد کنید</string>
+    <string name="pleaseEmail">لطفا نام کاربری را وارد کنید</string>
+    <string name="pleasePass">لطفا رمز عبور را وارد کنید</string>
+    <string name="pleaseConfPass">لطفا پسورد را تایید کنید</string>
+    <string name="passNotSame">رمز عبور ها یکی نیستند!</string>
+    <string name="somethingWentWrong">مشکلی یپش آمده است</string>
+    <string name="alreadyHaveAcc">حساب کاربری دارید؟</string>
+    <string name="login">ورود</string>
+    <string name="signIn">ورود</string>
+    <string name="dontHaveAcc">حساب کاربری ندارید؟</string>
+    <string name="edit">تغییر</string>
+    <string name="changePass">تعویض رمزعبور</string>
+    <string name="logOut">خروج از حساب</string>
+    <string name="yourGameMail">ایمیل متصل به اکانت</string>
+    <string name="yourGamePass">رمز عبور</string>
+    <string name="accountName">"نام اکانت"</string>
+    <string name="yourAcountName">نام اکانت شما</string>
+    <string name="amount">مقدار</string>
+    <string name="price">مبلغ</string>
+    <string name="purchase">پرداخت</string>
+    <string name="message">پیام...</string>
+    <string name="pleaseLoginToUseGChat">برای استفاده از چت جهانی لطفا وارد حساب خود شوید</string>
+    <string name="limitedCharacter">پیام شما برای ارسال  بسیار طولانی است</string>
+    <string name="publicChat">چت عمومی</string>
+    <string name="connecting">درحال اتصال</string>
+    <string name="whatingForNetwork">در انتظار شبکه...</string>
+    <string name="usernameLength">نام کاربری باید بین ۲ و ۱۶ کاراکتر باشد</string>
+    <string name="changeUsername">تغییر نام کاربری</string>
+    <string name="pleaseFillAll">لطفا همه باکس ها را کامل کنید</string>
+    <string name="currentPass">رمز فعلی</string>
+    <string name="newPass">رمز جدید</string>
+    <string name="confirmNewPass">تایید رمز جدید</string>
+    <string name="pubg">پابجی موبایل</string>
+    <string name="callOfDutyMobile">کالاف دیوتی موبایل</string>
+    <string name="freefire">فری فایر</string>
+    <string name="asphalt">آسفالت</string>
+    <string name="Enemad">نماد اعتماد و مجوز</string>
+    <string name="EnemadBig">دارای اینماد از وزارت ارشاد کشور</string>
+    <string name="experience">سابقه کاری</string>
+    <string name="experienceBig">دارای هفت سال سابقه در حوضه گیم</string>
+    <string name="security">تضمین امنیت شما</string>
+    <string name="securityBig">اطلاعات شما نزد ما محفوض است</string>
+    <string name="warzone">وارزون موبایل</string>
+    <string name="eightBall">۸ بال</string>
+    <string name="brawel">براول استارز</string>
+    <string name="clash_royal">کلش رویال</string>
+    <string name="genshin">گنشین ایمپکت</string>
+    <string name="hey_day">هی دی</string>
+    <string name="clash_of_clans">کلش او کلنز</string>
+    <string name="roblax">روبلاکس</string>
+    <string name="mobile_legends">موبایل لجندز</string>
+    <string name="pubg_new_state">پابجی نیو استیت</string>
+    <string name="searchBar">اینجا جستجو کنید</string>
+    <string name="productsSetuation">وضعیت سفارشات</string>
     <string name="contactWithSupport">تماس با پشتیبانی</string>
     <string name="rules">قوانین و مقررات</string>
     <string name="aboutUS">درباره ما</string>

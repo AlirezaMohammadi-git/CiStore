@@ -120,14 +120,14 @@ fun CartScreen(
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(0.5f)
-                            .align(Alignment.CenterEnd),
+                            .align(Alignment.CenterStart),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = "  تعداد کالا : ${cartScreenViewModel.totalCount.value}",
                             fontFamily = yekanBakhFont,
                             modifier = Modifier.fillMaxWidth().padding(8.dp),
-                            textAlign = TextAlign.End,
+                            textAlign = TextAlign.Start,
                             color = Color.Gray
                         )
 
@@ -135,7 +135,7 @@ fun CartScreen(
 
                     Box(
                         modifier = Modifier
-                            .wrapContentSize(Alignment.TopStart)
+                            .align(Alignment.CenterEnd)
                     ) {
 
                         var expanded = remember {
